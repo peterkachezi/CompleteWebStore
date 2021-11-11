@@ -1,0 +1,625 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/PointOfSale/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Our Products Table -->
+<div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+        <div class="x_title">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <h6 class="Header"><i class="fa fa-users"></i> Sales</h6>
+                </div>
+                <div class="col-md-9">
+                    @*<button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#AddCustomerModal"><i class="fa fa-plus-circle"></i> Add Customer</button>*@
+                </div>
+
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+
+
+                        <table id="tblSales" class="table table-striped table-bordered dt-responsive nowrap table-sm" cellspacing="0" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Order Number</th>
+                                    <th scope="col">Total Amount</th>
+                                    <th scope="col">Order Date</th>
+
+
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="AddCustomerModal" tabindex="-1" role="dialog" aria-labelledby="AddCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Title" id="AddCustomerModalLabel">Create Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-group" id="frmCustomer">
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label class="text-dark">First Name</label>
+                            <div>
+                                <input type="text" name="FirstName" Id="txtFirstName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="text-dark">Middle Name</label>
+                            <div>
+                                <input type="text" name="MiddleName" Id="txtMiddleName" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="text-dark">Last Name</label>
+                            <div>
+                                <input type="text" name="LastName" id="txtLastName" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mt-1">
+                        <div class="col-md-4">
+                            <label class="text-dark">Phone Number</label>
+                            <div>
+                                <input type="text" name="PhoneNumber" id="txtPhoneNumber" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="text-dark">Email</label>
+                            <div>
+                                <input type="email" name="Email" id="txtEmail" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" id="btnSubmit">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="UpdateCustomerModal" tabindex="-1" role="dialog" aria-labelledby="UpdateCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Title" id="UpdateCustomerModalLabel">Update Customer Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="form-group" id="frmUpdateCustomer">
+
+                    <input type="text" name="Id" Id="txtId" class="form-control" />
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <label class="text-dark">First Name</label>
+                            <div>
+                                <input type="text" name="FirstName" Id="txtFirstName1" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="text-dark">Middle Name</label>
+                            <div>
+                                <input type="text" name="MiddleName" Id="txtMiddleName1" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="text-dark">Last Name</label>
+                            <div>
+                                <input type="text" name="LastName" id="txtLastName1" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mt-1">
+                        <div class="col-md-4">
+                            <label class="text-dark">Phone Number</label>
+                            <div>
+                                <input type="text" name="PhoneNumber" id="txtPhoneNumber1" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="text-dark">Email</label>
+                            <div>
+                                <input type="email" name="Email" id="txtEmail1" class="form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" id="btnUpdateCustomer">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/Content/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+
+<style>
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+        bindDatatable();
+    });
+
+    function bindDatatable() {
+
+        datatable = $('#tblSales')
+            .DataTable({
+                "sAjaxSource": "/Administrator/Sale/GetCustomerOrders",
+                "bServerSide": true,
+                "bProcessing": true,
+                "bSearchable": true,
+                "order": [[1, 'asc']],
+                "language": {
+                    "emptyTable": "No record found.",
+                    "processing":
+                        '<i class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#2a2b2b;"></i><span class="sr-only">Loading...</span> '
+                },
+
+                "columns": [
+
+         
+                    {
+                        "data": "CustomerName",
+                        "autoWidth": true,
+                        "searchable": true
+                    },
+
+                    {
+                        "data": "OrderNumber",
+                        "autoWidth": true,
+                        "searchable": true
+                    },
+
+
+                    {
+                        "data": "TotalAmount",
+                        "autoWidth": true,
+                        "searchable": true
+                    },
+
+                    {
+                        "data": "NewOrderDate",
+                        "autoWidth": true,
+                        "searchable": true
+                    },
+
+                      
+                ],
+
+
+
+            });
+
+
+    }
+
+    $("#btnSubmit").click(function () {
+
+        if ($('#txtFirstName').val() == '') {
+            $('#txtFirstName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter First Name",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtMiddleName').val() == '') {
+            $('#txtMiddleName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Middle Name",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtLastName').val() == '') {
+            $('#txtLastName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Last Name",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtPhoneNumber').val() == '') {
+            $('#txtPhoneNumber').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Phone Number",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtEmail').val() == '') {
+            $('#txtEmail').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Email Address",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#AddCustomerModal").modal('hide');
+
+        $("#divLoader").show();
+
+        var formData = new FormData($('#frmCustomer').get(0));
+
+        $.ajax({
+            type: "POST",
+            url: "/Administrator/Customer/AddCustomer", // NB: Use the correct action name
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        title: "Success!",
+                        text: response.responseText,
+                        type: "success"
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+
+                $("#divLoader").hide();
+            },
+
+
+            error: function (error) {
+                alert("errror");
+            }
+        });
+
+    });
+
+    $("#btnUpdateCustomer").click(function () {
+
+        if ($('#txtFirstName1').val() == '') {
+            $('#txtFirstName1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter First Name",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtMiddleName1').val() == '') {
+            $('#txtMiddleName1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Middle Name",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtLastName1').val() == '') {
+            $('#txtLastName1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Last Name",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtPhoneNumber1').val() == '') {
+            $('#txtPhoneNumber1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Phone Number",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtEmail1').val() == '') {
+            $('#txtEmail1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter Email Address",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        $("#UpdateCustomerModal").modal('hide');
+
+        $("#divLoader").show();
+
+        var formData = new FormData($('#frmUpdateCustomer').get(0));
+
+        $.ajax({
+            type: "POST",
+            url: "/Administrator/Customer/Update", // NB: Use the correct action name
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        title: "Success!",
+                        text: response.responseText,
+                        type: "success"
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+
+                $("#divLoader").hide();
+            },
+
+
+            error: function (error) {
+                alert("errror");
+            }
+        });
+
+    });
+
+    function DeleteRecord(e) {
+
+        var id = e;
+
+        console.log(id);
+
+
+        swal(
+
+            {
+                title: "Are you sure?",
+
+                text: "Once deleted, you will not be able to recover this  file!",
+
+                type: "success",
+
+                showCancelButton: true,
+
+                confirmButtonColor: "##62b76e",
+
+                confirmButtonText: "Yes, Procceed!",
+
+                closeOnConfirm: false
+            },
+
+            function () {
+
+                $.ajax({
+
+                    type: "GET",
+
+                    url: "/Administrator/Customer/Delete/" + id,
+
+                    success: function (response) {
+
+                        if (response.success) {
+
+                            swal({
+
+                                position: 'top-end',
+
+                                type: "success",
+
+                                title: response.responseText,
+
+                                showConfirmButton: false,
+
+                                // timer: 2000,
+
+                            });
+                            setTimeout(function () { location.reload(); }, 3000);
+
+                        }
+
+                        else {
+                            swal({
+                                position: 'top-end',
+                                type: "error",
+                                title: response.responseText,
+                                showConfirmButton: true,
+                                timer: 5000,
+                            });
+
+                        }
+
+                    },
+                    error: function (response) {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: "Server error ,kindly contact the admin for assistance",
+                            showConfirmButton: false,
+                            timer: 5000,
+                        });
+
+                    }
+
+                })
+
+            }
+        );
+    }
+
+    function GetCustomer(e) {
+        var id = e;
+        console.log(id);
+
+        $.get("/Administrator/Customer/GetById/?Id=" + id, function (data, status) {
+            console.log(data);
+            if (data == null) {
+                alert("Does not exist");
+            } else {
+
+                $("#txtId").val(data.data.Id);
+                $("#txtEmail1").val(data.data.Email);
+                $("#txtFirstName1").val(data.data.FirstName);
+                $("#txtMiddleName1").val(data.data.MiddleName);
+                $("#txtLastName1").val(data.data.LastName);
+                $("#txtPhoneNumber1").val(data.data.PhoneNumber);
+
+                $('#UpdateCustomerModal').modal({ backdrop: 'static', keyboard: false })
+                $("#UpdateCustomerModal").modal('show');
+            }
+
+        });
+    };
+
+
+
+</script>
+
+

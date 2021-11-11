@@ -1,0 +1,730 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+
+
+        <fieldset>
+            <legend>
+                Customer
+            </legend>
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            Customer:
+                            <select class="form-control" id="txtCustomerId" name="CustomerId">
+
+                                @if (ViewBag.Customers != null)
+                                {
+                                    foreach (var data in ViewBag.Customers)
+                                    {
+                                        <option value="@data.Id"> @data.FullName</option>
+                                    }
+                                }
+
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </fieldset>
+
+
+        <fieldset>
+            <legend>
+                Product
+            </legend>
+
+            <div class="container">
+                <div class="row">
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            Select product:
+                            <select class="form-control" name="Id" id="txtProductId">
+
+
+                                @if (ViewBag.Products != null)
+                                {
+                                    <option value="">---Select a product item---</option>
+
+                                    foreach (var data in ViewBag.Products)
+                                    {
+
+                                        <option value="@data.Id"> @data.ProductName</option>
+                                    }
+                                }
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="margin-top:1.1em;" type="button" id="btnGetDat" value="Get Item" class="btn btn-success" />
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+
+                    <div class="col-md-4" style="display:none;">
+                        <div class="form-group">
+                            Item Name:
+                            <input type="text" id="txtItemName" name="Price" class="form-control" />
+                            <input type="text" id="txtProduct_Id" name="ProductId" class="form-control" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            Available Quantity:
+                            <input type="text" id="txtCurrentQuantity" name="" value="0" class="form-control numericOnly" readonly="readonly" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            Price:
+                            <input type="text" value="0.00" id="txtPrice" readonly name="Price" class="form-control" onchange="CalculateSubTotal()" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            Quantity:
+                            <input type="text" value="0" id="txtQuantity" name="Quantity" class="form-control numericOnly" onchange="CalculateSubTotal()" />
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            Discount:
+                            <input type="text" value="0.00" id="txtDiscount" name="Discount" class="form-control numericOnly" onchange="CalculateSubTotal()" />
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            Total:
+                            <input type="text" value="0.00" id="txtTotal" name="Total" class="form-control" readonly="readonly" />
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+
+                            <input type="button" id="btnAddToList" style="margin-top:20px" name="btnAddToList" class="btn btn-success pull-right btn-sm" value="Add To List" />
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                Listed Items
+            </legend>
+
+
+            <div class="ScrollStyle">
+
+                <table style="width:100%;" id="btlRestaurantItemList">
+                    <thead>
+                        <tr>
+                            <th hidden>Item Id</th>
+                            <th>Item Name</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+
+        </fieldset>
+        <br />
+        <div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <input data-toggle="modal" data-target="#divPayment" data-backdrop="static" data-keyboard="false" type="button" value="Checkout" name="Checkout" id="btnCheckout" class="btn btn-primary" />
+
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <input style="background-color: #1a1a2c; color:#ffffff;" type="text" value="0.00" name="TotalAmount" readonly="readonly" id="txtTotalAmount" class="form-control" />
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+<div id="divPayment" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Payment</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+
+            </div>
+
+            <div class="modal-body">
+                <div class="container"></div>
+
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        Payment Total:
+                        <input type="text" id="txtPaymentTotal" value="0.00" readonly="readonly" class="form-control" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        Payment Amount:
+                        <input type="text" id="txtPaymentAmount" value="0.00" class="form-control numericOnly" />
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @*Return Total:*@
+                        <input type="hidden" id="txtReturnTotal" value="0.00" class="form-control" />
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        Balance Amount:
+                        <input type="text" id="txtBalance" value="0.00" name="Change" readonly="readonly" class="form-control" />
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="SaveTransaction()" value="Payment">Payment</button>
+                <button class="btn btn-danger" id="btnClose" data-dismiss="modal" value="Close">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Title" id="exampleModalLabel">Success!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form method="get" action="~/Administrator/SalesOrders/DownloadSalesReportAsync">
+                    <div class="row">
+
+                        <div class="col-md-12 text-center">
+                            <div class="text-center">
+                                <img src="~/Content/icons/Green-Round-Tick.png" />
+                                <h3 style="position:center;"></h3>
+                                <h3 class="cupon-pop">Transaction was successful</h3>
+                                <h4 class="cupon-pop">Your Order No is.: <span id="txtOrderNumber11"></span></h4>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div>
+                                <input type="hidden" id="txtOrderId" name="Id" class="form-control" />
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" id="btnSubmitReceipt">Print Receipt</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/Content/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+
+<style>
+    .ScrollStyle {
+        max-height: 150px;
+        overflow-y: scroll;
+    }
+
+    .div1 {
+        display: flex;
+        justify-content: center;
+    }
+
+    img {
+        width: 7em;
+    }
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    fieldset {
+        /*   border: 1px solid #ddd !important;*/
+        margin: 0;
+        /*   padding: 10px;*/
+        /* border-radius: 4px;*/
+        background-color: #f5f5f5;
+        padding-left: 10px !important;
+    }
+
+    legend {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 0px;
+        width: 35%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px 5px 5px 10px;
+        background-color: #ffffff;
+    }
+</style>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        //$("#txtProductId").change(function () {
+        //    var Id = $("#txtProductId").val();
+
+        //    GetItemDetails(Id)
+
+        //});
+
+        //$("input[type=text]").change(function () {
+        //    CalculateSubTotal();
+        //});
+
+        $("input[type=text]").keyup(function () {
+            CalculateBalance();
+        });
+
+        $("#btnAddToList").click(function () {
+
+            txtCurrentQuantity
+
+
+
+
+            AddToTheList();
+        });
+
+
+        $("#btnPayment").click(function () {
+
+            SaveTransaction();
+        });
+
+
+        hidshowbtncheckout();
+
+
+    });
+
+
+    function hidshowbtncheckout() {
+
+        if (($.trim($("tbody").html()) == ""))
+            $("#btnCheckout").hide();
+
+        else
+            $("#btnCheckout").show();
+
+    }
+
+
+
+    function SaveTransaction() {
+        debugger
+
+        var id = $("#txtCustomerId").val();
+
+        console.log(id);
+             
+
+        $("#divPayment").modal('hide');
+
+        if ($('#txtCustomerId').val() == '' || $('#txtCustomerId').val() == null) {
+            $('#txtCustomerId').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please select a customer",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+        else
+        {
+
+
+            $("#divLoader").show();
+            var OrderDTO = {};
+            ListOfSalesDetails = new Array();
+
+            OrderDTO.CustomerId = $("#txtCustomerId").val();
+            OrderDTO.Id = $("#txtPaymentModeId").val();
+            OrderDTO.TotalAmount = $("#txtTotalAmount").val();
+            OrderDTO.Change = $("#txtBalance").val();
+            OrderDTO.CashPaid = $("#txtPaymentAmount").val();
+
+            $("#btlRestaurantItemList").find("tr:gt(0)").each(function () {
+
+                var SalesOrderDetailsDTO = {};
+
+                SalesOrderDetailsDTO.Total = parseFloat($(this).find("td:eq(5)").text());
+                SalesOrderDetailsDTO.ProductId = $(this).find("td:eq(0)").text();
+                SalesOrderDetailsDTO.SellingPrice = parseFloat($(this).find("td:eq(2)").text());
+                SalesOrderDetailsDTO.Quantity = parseFloat($(this).find("td:eq(3)").text());
+                SalesOrderDetailsDTO.Discount = parseFloat($(this).find("td:eq(4)").text());
+
+                ListOfSalesDetails.push(SalesOrderDetailsDTO);
+
+            });
+
+            OrderDTO.ListOfSalesDetails = ListOfSalesDetails;
+
+            $.ajax({
+
+                async: true,
+                type: 'POST',
+                dataType: 'JSON',
+                url: '/Administrator/Sale/SaveTransaction/',
+                data: JSON.stringify(OrderDTO),
+
+                contentType: 'application/json;charset=utf-8',
+
+                success: function (response) {
+
+
+                    //$("#txtOrderId").val(response.OrderId);
+                    //$("#txtResponse").val(response.responseText);
+                    //$("#txtOrderNumber11").text(response.OrderNumber);
+                    //$("#exampleModal1").modal('show');
+                    //$("#divLoader").hide();
+                    var order_number = response.OrderNumber;
+
+                    var url = "/PointOfSale/Sale/PrintReceipt?OrderNumber=" + order_number;
+                    window.location.href = url;
+
+                    //swal({
+                    //    title: "Success!",
+                    //    text: response.responseText,
+                    //    type: "success"
+                    //}), setTimeout(function () { location.reload(); }, 3000);
+                    //$('#wrapper').empty();
+                    //$('#wrapper').append(htmlData);
+                },
+                error: function (error) {
+                    alert("errror");
+                }
+
+            });
+        }
+
+        
+
+
+
+
+    }
+
+
+    function AddToTheList() {
+
+        if ($('#txtQuantity').val() == '' || $('#txtQuantity').val() == '0.00' || $('#txtQuantity').val() == '0') {
+            $('#txtQuantity').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please enter quantity",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtCurrentQuantity').val() == '' || $('#txtCurrentQuantity').val() == '0.00' || $('#txtCurrentQuantity').val() == '0') {
+            $('#txtCurrentQuantity').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "This product is out of stock",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        if ($('#txtCurrentQuantity').val() < 1) {
+            $('#txtCurrentQuantity').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "This product is out of stock",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+
+        var tblItemList = $("#btlRestaurantItemList");
+
+        var SellingPrice = parseFloat($("[id*=txtPrice]").val());
+        var Quantity = parseFloat($("[id*=txtQuantity]").val());
+        var Discount = parseFloat($("[id*=txtDiscount]").val());
+        var ProductId = $("[id*=txtProduct_Id]").val();
+        var ItemName = $("#txtItemName").val();
+        var Total = parseFloat(SellingPrice * Quantity) - Discount;
+
+        console.log(ProductId)
+
+
+        var ItemList =
+
+            "<tr><td hidden>" +
+            ProductId +
+            "</td><td>" +
+            ItemName +
+            "</td><td>" +
+            parseFloat(SellingPrice).toFixed(2) +
+            "</td><td>" +
+            parseFloat(Quantity).toFixed(2) +
+            "</td><td>" +
+            parseFloat(Discount).toFixed(2) +
+            "</td><td>" +
+            parseFloat(Total).toFixed(2) +
+
+            "</td><td> <input type='button' value='Remove' name='Remove' class='btn btn-danger btn-sm' onclick='RemoveItem(this)' /> </td></tr>";
+
+        tblItemList.append(ItemList);
+        FinaItemTotal();
+        ResetItem();
+        hidshowbtncheckout();
+
+    }
+
+
+    function RemoveItem(Id) {
+        $(Id).closest('tr').remove();
+        CalculateSubTotal();
+        FinaItemTotal();
+        hidshowbtncheckout();
+    }
+
+
+    function ResetItem() {
+        $("#txtPrice").val('0.00');
+        $("#txtQuantity").val('0');
+        $("#txtDiscount").val('0.00');
+        $("#txtTotal").val('0.00');
+        $("#txtCurrentQuantity").val('0');
+    }
+
+    function FinaItemTotal() {
+        $("#txtTotalAmount").val("0.00");
+        var TotalAmount = 0.00;
+        $("#btlRestaurantItemList").find("tr:gt(0)").each(function () {
+            var Total = parseFloat($(this).find("td:eq(5)").text());
+            TotalAmount += Total;
+        });
+        $("#txtTotalAmount").val(parseFloat(TotalAmount).toFixed(2));
+        $("#txtPaymentTotal").val(parseFloat(TotalAmount).toFixed(2));
+        $("#txtBalance").val(parseFloat(TotalAmount).toFixed(2));
+
+    }
+
+    function CalculateBalance() {
+        var FinalAmount = $("#txtTotalAmount").val();
+        var PaymentAmount = $("#txtPaymentAmount").val();
+        var ReturnAmount = $("#txtReturnTotal").val();
+        var BalanceAmount = parseFloat(FinalAmount) - parseFloat(PaymentAmount) + parseFloat(ReturnAmount);
+        $("#txtBalance").val(parseFloat(BalanceAmount).toFixed(2));
+
+        if (parseFloat(BalanceAmount) == 0) {
+            $("#btnPayment").removeAttr("disabled");
+        } else {
+            $("#btnPayment").attr("disabled", "disabled");
+        }
+    }
+
+
+    function CalculateSubTotal() {
+        var SellingPrice = parseFloat($("[id*=txtPrice]").val());
+        var Quantity = parseFloat($("[id*=txtQuantity]").val());
+        var Discount = parseFloat($("[id*=txtDiscount]").val());
+        var total = parseFloat(SellingPrice * Quantity) - Discount;
+        $("#txtTotal").val(parseFloat(total).toFixed(2));
+
+    }
+
+
+
+
+    $('#btnGetDat').click(function () {
+
+
+        if ($('#txtProductId').val() == '') {
+            $('#txtProductId').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Please select a product",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        var Id = $('#txtProductId').val();
+
+        console.log(Id);
+        $.ajax({
+
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json;charset=utf-8',
+            data: { Id: Id },
+            url: '/Administrator/ManageStock/GetById',
+            success: function (data) {
+                console.log(data);
+                $("#txtPrice").val(parseFloat(data.data.SellingPrice).toFixed(2));
+                $("#txtItemName").val(data.data.ProductName);
+                $("#txtCurrentQuantity").val(data.data.Quantity);
+                $("#txtProduct_Id").val(data.data.Id);
+            },
+
+            error: function () {
+                alert("There is problem getting item details")
+            }
+
+        });
+
+    })
+
+
+
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+</script>
+
+
+

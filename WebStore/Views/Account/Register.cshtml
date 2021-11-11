@@ -1,0 +1,103 @@
+﻿@model WebStore.Models.RegisterViewModel
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+
+                <div>
+
+                    @if (!Html.ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Html.ValidationSummary()
+                        </div>
+                    }
+
+                </div>
+
+                <div>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @TempData["Success"]
+                        </div>
+                    }
+                </div>
+                <section class="login_content">
+                    <form method="post" action="/Account/Register/">
+                        @Html.AntiForgeryToken()
+                        <h1>Create Account</h1>
+
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="First Name" name="FirstName" required="" />
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Last Name" name="LastName" required="" />
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="email" class="form-control" placeholder="Email" name="Email" required="" />
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Phone Number" name="PhoneNumber" required="" />
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="password" class="form-control" placeholder="Password" name="Password" required="" />
+
+                            </div>
+
+                            <div class="col-md-12">
+                                <input type="password" class="form-control" placeholder="Confirm Password" name="ConfirmPassword" required="" />
+
+                            </div>
+
+                        </div>
+
+
+                        <div>
+                            <button class="btn btn-default submit" href="#" type="submit">Submit</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="separator">
+                            <p class="change_link">
+                                Already a member ?
+                                <a href="~/Account/Login/" class="to_register"> Log in </a>
+                            </p>
+
+                            <div class="clearfix"></div>
+                            <br />
+
+                            <div>
+                                <h1><i class="fa fa-building"></i> Winkad Fresh | Drops</h1>
+                                <p>©2021 All Rights Reserved.Skisoft Systems. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+
+            <div id="register" class="animate form registration_form">
+                <section class="login_content">
+                    <form>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>

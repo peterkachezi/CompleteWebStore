@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "ValidatePayment";
+}
+
+
+<div class="x_panel col-md-8" style="margin-bottom: 2em; border-radius: 12px;">
+    <div class="">
+        <h2 class="Header">Validate Payment</h2>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+
+        <form id="demo-form" data-parsley-validate="" novalidate="" class="form-group">
+
+            <div class="col-md-10">
+                <input type="text" id="txtTransId" class="form-control">
+            </div>
+
+            <span class="input-group-btn">
+                <button type="button" onclick="GetTransaction()" class="btn btn-info">Validate</button>
+            </span>
+
+        </form>
+
+
+
+
+    </div>
+</div>
+
+
+
+<div style="display:none;" id="divPayment">
+    <div class="x_panel col-md-8" style="margin-bottom: 2em; border-radius: 12px;">
+        <div class="">
+            <h2 class="Header">Payment Details</h2>
+            <h2 class="pp-move"><span id="fm-move-files-title-area" title="Move Files">Move Files</span></h2>
+            <div class=""></div>
+        </div>
+        <div class="x_content">
+
+            <form>
+                <div class="col-md-12">
+                    <div class="col-md-4 row">
+
+                        <div class="">
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <img src="~/Content/images/mpesa-seeklogo.com.png" style="height:8em; width:17em;" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-8 row">
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-sm-10 col-form-label"><strong>Phone Number:</strong></label>
+                                <div class="col-sm-10">
+                                    <label for="" class="" id="txtPhoneNumber"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-sm-8 col-form-label"><strong>Paid By:</strong></label>
+                                <div class="col-sm-10">
+                                    <label for="" class="" id="txtFullName"></label>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-sm-10 col-form-label"><strong>Transaction Id:</strong></label>
+                                <div class="col-sm-10">
+                                    <label for="" id="txtTransactionNumber" class=""></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-sm-10 col-form-label"><strong>Amount Paid:</strong></label>
+                                <div class="col-sm-10">
+                                    <label for="" id="txtAmount" class=""></label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <div class="form-group row">
+                                <label for="inputPassword" class="col-sm-10 col-form-label"><strong>Payment Date:</strong></label>
+                                <div class="col-sm-10">
+                                    <label for="" class="" id="txtNewTransactionDate"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/Content/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+
+<script>
+
+    function GetTransaction(e) {
+
+        if ($('#txtTransId').val() == '') {
+            $('#txtTransId').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Transaction Id is a required field",
+                showConfirmButton: true,
+            });
+            return false;
+        }
+
+
+        var transId = $('#txtTransId').val();
+
+        $.get("/Administrator/Payments/GetPayment/?TransId=" + transId, function (data, status) {
+            console.log(data);
+
+
+            if (data.data == false) {
+
+                $("#divPayment").hide();
+
+                swal({
+                    position: 'top-end',
+                    type: "error",
+                    title: "The transaction was not found",
+                    showConfirmButton: true,
+                    timer: 5000,
+                });
+
+            }
+
+            else {
+
+                $("#txtId1").text(data.data.Id);
+                $("#txtAmount").text(data.data.Amount);
+                $("#txtFullName").text(data.data.FullName);
+                $("#txtNewTransactionDate").text(data.data.NewTransactionDate);
+                $("#txtPhoneNumber").text(data.data.PhoneNumber);
+                $("#txtTransactionNumber").text(data.data.TransactionNumber);
+
+                $("#divPayment").show();
+
+            }
+
+
+        });
+    };
+</script>

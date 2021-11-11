@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "ViewCustomers";
+}
+
+<h2>ViewCustomers</h2>
+
+<form method="post" action="/Administrator/Customer/ViewCustomers">
+
+    <fieldset>
+        <legend>Data</legend>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="text-dark">Expense Amount</label>
+                <div>
+                    <input type="text" name="CustomerNumber" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="submit" name="" value="Submit" class="btn btn-success" />
+
+            </div>
+        </div>
+
+    </fieldset>
+    <asp:ScriptManager runat="server"></asp:ScriptManager>
+    <div id="div_report" style="width:100%;">
+        <iframe id="showreport" src="~/Reports/ReportForm.aspx/" style="width:100%;"></iframe>
+    </div>
+
+</form>

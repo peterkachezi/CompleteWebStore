@@ -1,0 +1,346 @@
+﻿
+@{
+    ViewBag.Title = "CreateProduct";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2 class="Header">Create Product </h2>
+      
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <br>
+        <form id="frmCreateProduct" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+
+            <div class="item form-group">
+                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Product Name</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <input id="txtName" value="Winkad Fresh Drops" class="form-control" type="text" name="Name" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="item form-group">
+                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Select Packaging</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <select class="form-control" name="PackagingId">
+                        @if (ViewBag.Packaging != null)
+                        {
+                            foreach (var item in ViewBag.Packaging)
+                            {
+                                <option value="@item.Id">@item.FullName</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <button type="button" class="btn btn-success btn-sm" onclick="OpenProductPackingForm()"><i class="fa fa-plus-circle"></i> </button>
+
+            </div>
+
+            <div class="item form-group">
+                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Cost Price</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <input id="txtCostPrice" class="form-control numericOnly" type="text" name="CostPrice">
+                </div>
+            </div>
+
+            <div class="item form-group">
+                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Selling Price</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <input id="txtSellingPrice" class="form-control numericOnly" type="text" name="SellingPrice">
+                </div>
+            </div>
+
+            <div class="item form-group">
+                <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Re-Order Level</label>
+                <div class="col-md-6 col-sm-6 ">
+                    <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="ReOrderLevel">
+                </div>
+            </div>
+
+
+            <div class="ln_solid"></div>
+            <div class="item form-group">
+                <div class="col-md-6 col-sm-6 offset-md-3">
+              
+                    <button class="btn btn-danger" type="reset">Reset</button>
+                    <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCreateProductPacking" tabindex="-1" role="dialog" aria-labelledby="ModalCreateProductPackingLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalCreateProductPackingLabel"> Create Product Packing</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmCreateProductPacking">
+
+
+                    <div class="">
+                        <label>Unit of Measure Name</label>
+
+                        <input id="txtName" class="form-control" type="text" name="Name">
+
+                    </div>
+
+                    <br />
+                    <div class="">
+                        <label>Select Unit of Measure</label>
+
+                        <select class="form-control" name="Unit">
+                            <option value="ltr">ltr</option>
+                            <option value="ml">ml</option>
+
+                        </select>
+
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" id="btnSubmitPacking" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/Content/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<style>
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+
+
+
+<script>
+
+ 
+    function OpenProductPackingForm() {
+        $("#ModalCreateProductPacking").modal('show');
+    }
+
+
+    $("#btnSubmit").click(function () {
+
+        if ($('#txtCostPrice').val() == '') {
+            $('#txtCostPrice').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Cost Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtSellingPrice').val() == '') {
+            $('#txtSellingPrice').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Selling Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#ModalCreateProduct").modal('hide');
+
+        $("#divLoader").show();
+
+        var data = $("#frmCreateProduct").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/Product/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { window.location = "/Administrator/Product/"; }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    })
+
+
+    $("#btnSubmitPacking").click(function () {
+
+        if ($('#txtName').val() == '') {
+            $('#txtName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+
+
+        $("#ModalCreateProductPacking").modal('hide');
+
+        var data = $("#frmCreateProductPacking").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/Packaging/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+                                       
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    })
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+
+
+
+
+
+
+</script>

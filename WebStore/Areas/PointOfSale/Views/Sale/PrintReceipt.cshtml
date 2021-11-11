@@ -1,0 +1,40 @@
+﻿
+
+
+
+<div class="col-md-12 col-sm-12 ">
+    <div class="">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <form>
+                        <div class="alert alert-success">
+                            <i class="fa fa-check"></i>
+                            <strong>Success!  Transaction was sussessfull.</strong>
+                            <strong>Order No is:@ViewBag.OrderNumber</strong>
+                        </div>
+
+                        <div class="col-md-8">
+                            <div class="col-md-8 pull-right">
+                                <input value="@ViewBag.OrderNumber" name="OrderNumber" type="hidden" />
+                                                        
+                                <a class="btn btn-success mr-3 pull-right" href="/PointOfSale/Sale/GetReceipt?OrderNumber=@ViewBag.OrderNumber" target="_blank"><i class="fa fa-print"> Print Receipt</i></a>
+                                <a class="btn btn-success mr-3 pull-right" href="/PointOfSale/Sale/"><i class="fa fa-arrow-circle-o-right"> Next Customer</i></a>
+
+
+
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

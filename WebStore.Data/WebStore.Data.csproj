@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1FD92DE3-39A0-454A-89CC-2F8FE9E92AE6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebStore.Data</RootNamespace>
+    <AssemblyName>WebStore.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomerNumber.cs" />
+    <Compile Include="DTOs\BranchModule\BranchDTO.cs" />
+    <Compile Include="DTOs\BranchModule\Class1.cs" />
+    <Compile Include="DTOs\BrandModule\BrandDTO.cs" />
+    <Compile Include="DTOs\CompanyModule\CompanyDTO.cs" />
+    <Compile Include="DTOs\CountryModule\CountryDTO.cs" />
+    <Compile Include="DTOs\CountyModule\CountyDTO.cs" />
+    <Compile Include="DTOs\CustomerModule\CustomerDTO.cs" />
+    <Compile Include="DTOs\CustomerOrderModule\CustomerOrderDTO.cs" />
+    <Compile Include="DTOs\ElectronicsModule\ElectronicDTO.cs" />
+    <Compile Include="DTOs\EmployeeModule\EmployeeDTO.cs" />
+    <Compile Include="DTOs\ExpenseModule\ExpenseDTO.cs" />
+    <Compile Include="DTOs\ExpenseTypeModule\ExpenseTypeDTO.cs" />
+    <Compile Include="DTOs\FurnitureModule\FurnitureDTO.cs" />
+    <Compile Include="DTOs\MpesaModule\Class1.cs" />
+    <Compile Include="DTOs\MpesaModule\DarajaResponseAfterUserEntersPin.cs" />
+    <Compile Include="DTOs\MpesaModule\MpesaAccessTokenDTO.cs" />
+    <Compile Include="DTOs\MpesaModule\MpesaExpressPaymentRequestDTO.cs" />
+    <Compile Include="DTOs\MpesaModule\MpesaExpressQueryRequestDTO.cs" />
+    <Compile Include="DTOs\MpesaModule\MpesaExpressQueryRequestResponseDTO.cs" />
+    <Compile Include="DTOs\MpesaModule\MpesaExpressRequestDTO.cs" />
+    <Compile Include="DTOs\MpesaModule\MpesaExpressResponseDTO.cs" />
+    <Compile Include="DTOs\MpesaPaymenySettingsModule\MpesaPaymentSettingDTO.cs" />
+    <Compile Include="DTOs\PaymentModeModule\PaymentModeDTO.cs" />
+    <Compile Include="DTOs\PaymentModule\PaymentDTO.cs" />
+    <Compile Include="DTOs\ProductCategoryModule\ProductCategoryDTO.cs" />
+    <Compile Include="DTOs\ProductModule\ProductDTO.cs" />
+    <Compile Include="DTOs\ProductPackingModule\ProductPackingDTO.cs" />
+    <Compile Include="DTOs\ProductTypeModule\ProductTypeDTO.cs" />
+    <Compile Include="DTOs\ReturnModule\ReturnsDTO.cs" />
+    <Compile Include="DTOs\RoleModules\RoleDTO.cs" />
+    <Compile Include="DTOs\RoleModules\UserRoleDTO.cs" />
+    <Compile Include="DTOs\SalesDetailsModule\SalesDetailsDTO.cs" />
+    <Compile Include="DTOs\SalesModule\SalesDTO.cs" />
+    <Compile Include="DTOs\SMSModule\SMSDTO.cs" />
+    <Compile Include="DTOs\StockModule\ProductDTO.cs" />
+    <Compile Include="DTOs\SupplierModule\SupplierDTO.cs" />
+    <Compile Include="DTOs\TaxModule\TaxDTO.cs" />
+    <Compile Include="DTOs\UOMModule\UnitOfMeasureDTO.cs" />
+    <Compile Include="DTOs\UserModule\UserDTO.cs" />
+    <Compile Include="DTOs\VehicleModule\VehicleDTO.cs" />
+    <Compile Include="DTOs\VehicleModule\VehicleMakeDTO.cs" />
+    <Compile Include="EDMX\AspNetRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\AspNetUser.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\AspNetUserClaim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\AspNetUserLogin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Branch.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Brand.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Company.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Country.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\County.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Customer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\CustomerOrder.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\DeliveryFee.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Electronic.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Employee.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Expens.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\ExpenseType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Furniture.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Invoice.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\MpesaExpressRespons.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\MpesaPaymentSetting.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\OrderPayment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Payment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\PaymentMode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\ProductPackaging.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\ProductType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Return.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Sale.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\SalesDetail.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\SmsRespons.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Supplier.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Tax.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\UnitOfMeasure.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Vehicle.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\VehicleMake.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BranchModule\BranchService.cs" />
+    <Compile Include="Services\BranchModule\IBranchService.cs" />
+    <Compile Include="Services\BrandModule\BrandSerivce.cs" />
+    <Compile Include="Services\BrandModule\IBrandSerivce.cs" />
+    <Compile Include="Services\CompanyModule\CompanyService.cs" />
+    <Compile Include="Services\CompanyModule\ICompanyService.cs" />
+    <Compile Include="Services\CountryModule\CountryService.cs" />
+    <Compile Include="Services\CountryModule\ICountryService.cs" />
+    <Compile Include="Services\CountyModule\CountyService.cs" />
+    <Compile Include="Services\CountyModule\ICountyService.cs" />
+    <Compile Include="Services\CustomerOrderModule\CustomerOrderService.cs" />
+    <Compile Include="Services\CustomerOrderModule\ICustomerOrderService.cs" />
+    <Compile Include="Services\CustomersModule\CustomersService.cs" />
+    <Compile Include="Services\CustomersModule\ICustomersService.cs" />
+    <Compile Include="Services\DeliveryFeeModule\DeliveryFeeService.cs" />
+    <Compile Include="Services\DeliveryFeeModule\IdeliveryFeeService.cs" />
+    <Compile Include="Services\ElectronicsModule\ElectronicService.cs" />
+    <Compile Include="Services\ElectronicsModule\IElectronicService.cs" />
+    <Compile Include="Services\EmployeeModule\EmployeeService.cs" />
+    <Compile Include="Services\EmployeeModule\IEmployeeService.cs" />
+    <Compile Include="Services\ExpenseModule\ExpenseService.cs" />
+    <Compile Include="Services\ExpenseModule\IExpenseService.cs" />
+    <Compile Include="Services\ExpenseTypeModule\ExpenseTypeService.cs" />
+    <Compile Include="Services\ExpenseTypeModule\IExpenseTypeService.cs" />
+    <Compile Include="Services\FurnitureModule\FurnitureService.cs" />
+    <Compile Include="Services\FurnitureModule\IFurnitureService.cs" />
+    <Compile Include="Services\MpesaModule\IMpesaService.cs" />
+    <Compile Include="Services\MpesaModule\MpesaService.cs" />
+    <Compile Include="Services\MpesaPaymenySettingsModule\IMpesaSettingsService.cs" />
+    <Compile Include="Services\MpesaPaymenySettingsModule\MpesaSettingsService.cs" />
+    <Compile Include="Services\PaymentModeModule\IPaymentModeService.cs" />
+    <Compile Include="Services\PaymentModeModule\PaymentModeService.cs" />
+    <Compile Include="Services\PaymentModule\IPaymentService.cs" />
+    <Compile Include="Services\PaymentModule\PaymentService.cs" />
+    <Compile Include="Services\ProductCategoryModule\IProductCategoryService.cs" />
+    <Compile Include="Services\ProductCategoryModule\ProductCategoryService.cs" />
+    <Compile Include="Services\ProductModule\IProductService.cs" />
+    <Compile Include="Services\ProductModule\ProductService.cs" />
+    <Compile Include="Services\ProductPackingModule\IProductPackingService.cs" />
+    <Compile Include="Services\ProductPackingModule\ProductPackingService.cs" />
+    <Compile Include="Services\ProductTypeModule\IProductTypeService.cs" />
+    <Compile Include="Services\ProductTypeModule\ProductTypeService.cs" />
+    <Compile Include="Services\ReturnModule\IReturnService.cs" />
+    <Compile Include="Services\ReturnModule\ReturnService.cs" />
+    <Compile Include="Services\SalesModule\ISalesService.cs" />
+    <Compile Include="Services\SalesModule\SalesService.cs" />
+    <Compile Include="Services\SMSModule\ISMSService.cs" />
+    <Compile Include="Services\SMSModule\SMSService.cs" />
+    <Compile Include="Services\SupplierModule\ISupplierService.cs" />
+    <Compile Include="Services\SupplierModule\SupplierService.cs" />
+    <Compile Include="Services\TaxModule\ITaxService.cs" />
+    <Compile Include="Services\TaxModule\TaxService.cs" />
+    <Compile Include="Services\UOMModule\IUnitOfMeasureService.cs" />
+    <Compile Include="Services\UOMModule\UnitOfMeasureService.cs" />
+    <Compile Include="Services\UserModule\IUserService.cs" />
+    <Compile Include="Services\UserModule\UserService.cs" />
+    <Compile Include="Services\VehicleModule\IVehicleService.cs" />
+    <Compile Include="Services\VehicleModule\VehicleService.cs" />
+    <Compile Include="Utils\Enumerations.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="EDMX\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EDMX\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EDMX\Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EDMX\Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

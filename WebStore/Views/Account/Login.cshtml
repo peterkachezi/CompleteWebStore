@@ -1,0 +1,70 @@
+﻿
+
+
+
+<body class="login">
+        <div>
+            <a class="hiddenanchor" id="signup"></a>
+            <a class="hiddenanchor" id="signin"></a>
+
+
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <div>
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["Error"]
+                            </div>
+                        }
+                    </div>
+
+                    <div>
+                        @if (TempData["Info"] != null)
+                        {
+                            <div class="alert alert-info" role="alert">
+                                @TempData["Info"]
+                            </div>
+                        }
+                    </div>
+
+
+                    <section class="login_content">
+                        <form method="post" action="~/Account/Login/">
+                            <h1>Login</h1>
+                            <div>
+                                <input type="text" class="form-control" name="Email" placeholder="Email" required="" />
+                            </div>
+                            <div>
+                                <input type="password" class="form-control" name="Password" placeholder="Password" required="" />
+                            </div>
+                            <div>
+
+                                <input type="submit" class="btn btn-default submit" value="Log In" />
+                                <a class="reset_pass" href="/Account/ForgotPassword">Lost your password?</a>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="separator">
+                                <p class="change_link">
+                                    New to site?
+                                    <a href="~/Account/Register" class="to_register"> Create Account </a>
+                                </p>
+
+                                <div class="clearfix"></div>
+                                <br />
+
+                                <div>
+
+                                    @Html.Partial("__FooterInformation")
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+
+            </div>
+        </div>
+    </body>

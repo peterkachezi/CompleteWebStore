@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewBag.Title = "Furnitures";
+}
+
+<div class="">
+    <div class="x_panel">
+        <div class="x_title">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <h6 class="Header"><i class="fa fa-table"></i> Furnitures</h6>
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#ModalCreateFurniture" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
+                </div>
+
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+
+            <div class="">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+
+                            <table id="tblFurniture" class="table table-striped table-bordered dt-responsive nowrap table-sm" cellspacing="0" width="100%">
+
+                                <thead>
+                                    <tr>
+
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Phone Number</th>
+                                        <th scope="col">Amoun Paid</th>
+                                        <th scope="col">Trans Id</th>
+                                        <th scope="col">Trans Date</th>
+
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<style>
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+        GetAllData();
+
+    });
+
+    function GetAllData() {
+
+
+        var t = $('#tblFurniture').DataTable({
+            "ajax": {
+                "url": "/Administrator/Payments/GetAllPayments",
+                "type": "GET",
+                "datatype": "json"
+            },
+
+            "columns": [
+
+                { "data": "Id" },
+                { "data": "FullName" },
+                { "data": "PhoneNumber" },
+                { "data": "Amount" },
+                { "data": "TransactionNumber" },
+                { "data": "NewTransactionDate" },
+
+
+
+                //{
+                //    data: null,
+                //    mRender: function (data, type, row) {
+                //        return "<a href='#' class='btn-sm success'    onclick=GetRecord('" + row.Id + "'); >Edit</a> / <a href='#' class='btn-sm danger'    onclick=DeleteRecord('" + row.Id + "'); >Delete</a>";
+
+                //    }
+                //}
+
+            ]
+
+        });
+
+        //t.on('order.dt search.dt', function () {
+        //    t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+        //        cell.innerHTML = i + 1;
+        //    });
+        //}).draw();
+    }
+
+
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+
+</script>
+
+

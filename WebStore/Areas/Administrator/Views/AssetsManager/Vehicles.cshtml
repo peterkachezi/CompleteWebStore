@@ -1,0 +1,687 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="">
+    <div class="x_panel">
+        <div class="x_title">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <h6 class="Header"><i class="fa fa-bus"></i> Vehicles</h6>
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#ModalCreateVehicle" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i> </button>
+                </div>
+
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+
+            <div class="">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+
+                            <table id="tblVehicle" class="table table-striped table-bordered dt-responsive nowrap table-sm" cellspacing="0" width="100%">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No.</th>
+                                        <th scope="col">Model Name</th>
+                                        <th scope="col">Model Year</th>
+                                        <th scope="col">Plate Number</th>
+                                        <th scope="col">Make</th>
+                                        <th scope="col">Capacity</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Date Purchased</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Created By</th>
+                                        <th scope="col">Create Date</th>
+                                        <th scope="col">Action</th>
+
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalCreateVehicle" tabindex="-1" role="dialog" aria-labelledby="ModalCreateVehicleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalCreateVehicleLabel"> Create New</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmCreateFurniture">
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Model Name</label>
+                        <input type="email" class="form-control" id="txtModelName" name="ModelName" aria-describedby="emailHelp" placeholder="e.g Hilux,Prado VX-L">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Model Year</label>
+                        <input type="email" class="form-control" id="txtModelYear" name="ModelYear" aria-describedby="emailHelp" placeholder="e.g 2015">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Plate Number</label>
+                        <input type="email" class="form-control" id="txtPlateNumber" name="PlateNumber" aria-describedby="emailHelp" placeholder="e.g KCH 4..">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Select Make</label>
+                        <select class="form-control" name="MakeId">
+                            @if (ViewBag.Makes != null)
+                            {
+                                foreach (var item in ViewBag.Makes)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+
+
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Capacity</label>
+                        <input type="email" class="form-control" id="txtCapacity" name="Capacity" aria-describedby="emailHelp" placeholder="e.g 4">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Owner Name</label>
+                        <input type="email" class="form-control" id="txtOwner" name="Owner" aria-describedby="emailHelp" placeholder="e.g John Doe">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Date Purchased</label>
+                        <input type="date" class="form-control" id="txtDatePurchased" value='@DateTime.Now.ToString("yyyy-MM-dd")' name="DatePurchased" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Select Vehicle Condition</label>
+                        <select name="Status" class="form-control" id="txtStatus">
+                            <option value="0">Good</option>
+                            <option value="1">Bad</option>
+                        </select>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="SaveData()" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalUpdateVehicle" tabindex="-1" role="dialog" aria-labelledby="ModalUpdateVehicleLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalUpdateVehicleLabel"> Create New</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmUpdateVehicle">
+
+                    <input type="hidden" id="txtId" name="Id" />
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Model Name</label>
+                        <input type="email" class="form-control" id="txtModelName1" name="ModelName" aria-describedby="emailHelp" placeholder="e.g Hilux,Prado VX-L">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Model Year</label>
+                        <input type="email" class="form-control" id="txtModelYear1" name="ModelYear" aria-describedby="emailHelp" placeholder="e.g 2015">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Plate Number</label>
+                        <input type="email" class="form-control" id="txtPlateNumber1" name="PlateNumber" aria-describedby="emailHelp" placeholder="e.g KCH 4..">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Select Make</label>
+                        <select class="form-control" id="txtMakeId" name="MakeId">
+                            @if (ViewBag.Makes != null)
+                            {
+                                foreach (var item in ViewBag.Makes)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Capacity</label>
+                        <input type="email" class="form-control" id="txtCapacity1" name="Capacity" aria-describedby="emailHelp" placeholder="e.g 4">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Owner Name</label>
+                        <input type="email" class="form-control" id="txtOwner1" name="Owner" aria-describedby="emailHelp" placeholder="e.g John Doe">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Date Purchased</label>
+                        <input type="date" class="form-control" id="txtDatePurchased1" name="DatePurchased" aria-describedby="emailHelp">
+
+
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Select Vehicle Condition</label>
+                        <select name="Status" class="form-control" id="txtStatus1">
+                            <option value="0">Good</option>
+                            <option value="1">Bad</option>
+                        </select>
+                    </div>
+
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="UpdateData()" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/Content/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<style>
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+
+
+<script>
+
+
+    $(document).ready(function () {
+
+        GetAllData();
+
+
+    });
+
+
+    function GetAllData() {
+
+        var t = $('#tblVehicle').DataTable({
+            "ajax": {
+                "url": "/Administrator/AssetsManager/GetVehicles",
+                "type": "GET",
+                "datatype": "json",
+
+            },
+
+            "columns": [
+
+                { "data": "Id" },
+                { "data": "ModelName" },
+                { "data": "ModelYear" },
+                { "data": "PlateNumber" },
+                { "data": "MakeName" },
+                { "data": "Capacity" },
+                { "data": "Owner" },
+                { "data": "NewDatePurchased" },
+                { "data": "StatusDescription" },
+                { "data": "CreatedByName" },
+                { "data": "NewCreateDate" },
+
+                {
+                    data: null,
+                    mRender: function (data, type, row) {
+                        return "<a href='#' class='btn-sm success'    onclick=GetRecord('" + row.Id + "'); >Edit</a> / <a href='#' class='btn-sm danger'    onclick=DeleteRecord('" + row.Id + "'); >Delete</a>";
+
+                    }
+                }
+
+            ]
+
+        });
+
+        t.on('order.dt search.dt', function () {
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+
+    }
+
+    function DeleteRecord(e) {
+
+        var id = e;
+
+        console.log(id);
+
+
+        swal(
+
+            {
+                title: "Are you sure?",
+
+                text: "Once deleted, you will not be able to recover this  file!",
+
+                type: "success",
+
+                showCancelButton: true,
+
+                confirmButtonColor: "##62b76e",
+
+                confirmButtonText: "Yes, Procceed!",
+
+                closeOnConfirm: false
+            },
+
+            function () {
+
+                $.ajax({
+
+                    type: "GET",
+
+                    url: "/Administrator/AssetsManager/DeleteVehicle/" + id,
+
+                    success: function (response) {
+
+                        if (response.success) {
+
+                            swal({
+
+                                position: 'top-end',
+
+                                type: "success",
+
+                                title: response.responseText,
+
+                                showConfirmButton: false,
+
+                                // timer: 2000,
+
+                            });
+                            setTimeout(function () { location.reload(); }, 3000);
+
+                        }
+
+                        else {
+                            swal({
+                                position: 'top-end',
+                                type: "error",
+                                title: response.responseText,
+                                showConfirmButton: true,
+                                timer: 5000,
+                            });
+
+                        }
+
+                    },
+                    error: function (response) {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: "Server error ,kindly contact the admin for assistance",
+                            showConfirmButton: false,
+                            timer: 5000,
+                        });
+
+                    }
+
+                })
+
+            }
+        );
+    }
+
+    function SaveData() {
+
+        if ($('#departmentsDropdown').val() == '' || $('#departmentsDropdown').val() < 1) {
+            $('#txtNamedepartmentsDropdown').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Vehicle Make is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtModelName').val() == '') {
+            $('#txtModelName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Model Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtModelYear').val() == '') {
+            $('#txtModelYear').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Model Year is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtPlateNumber').val() == '') {
+            $('#txtPlateNumber').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Plate Number is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtCapacity').val() == '') {
+            $('#txtCapacity').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Capacity is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtOwner').val() == '') {
+            $('#txtOwner').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Owner name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtDatePurchased').val() == '') {
+            $('#txtDatePurchased').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: " Date of purchase is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#divLoader").show();
+        $("#ModalCreateVehicle").modal('hide');
+
+        var data = $("#frmCreateFurniture").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/AssetsManager/CreateVehicles",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    }
+
+    function UpdateData() {
+
+        if ($('#txtName1').val() == '') {
+            $('#txtName1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtVehicleModel1').val() == '') {
+            $('#txtVehicleModel1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Year of manufucture is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtRegistrationNumber1').val() == '') {
+            $('#txtRegistrationNumber1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Registration Number is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtBrandName1').val() == '') {
+            $('#txtBrandName1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Brand Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#divLoader").show();
+        $("#ModalUpdateVehicle").modal('hide');
+
+        var data = $("#frmUpdateVehicle").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/AssetsManager/UpdateVehicle",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    }
+
+    function GetRecord(e) {
+        var id = e;
+
+
+        $.get("/Administrator/AssetsManager/GetVehicleById/?Id=" + id, function (data, status) {
+            console.log(data);
+            if (data == null) {
+                alert("Does not exist");
+            } else {
+
+                $("#txtId").val(data.data.Id);
+                $("#txtModelName1").val(data.data.ModelName);
+                $("#txtModelYear1").val(data.data.ModelYear);
+                $("#txtPlateNumber1").val(data.data.PlateNumber);
+                $("#txtMakeId").val(data.data.MakeId);
+                $("#txtCapacity1").val(data.data.Capacity);
+                $("#txtOwner1").val(data.data.Owner);
+
+                // $("#txtDatePurchased1").val(data.data.NewDatePurchased);
+
+                //var d = data.data.NewDatePurchased;
+
+                //var myTimestamp = new Date(d); //set default date to now
+
+                //$("#txtDatePurchased1").val(myTimestamp);
+
+
+
+                $("#txtStatus1").val(data.data.Status);
+
+                $('#ModalUpdateVehicle').modal({ backdrop: 'static', keyboard: false })
+                $("#ModalUpdateVehicle").modal('show');
+            }
+
+        });
+    };
+
+</script>
+
+

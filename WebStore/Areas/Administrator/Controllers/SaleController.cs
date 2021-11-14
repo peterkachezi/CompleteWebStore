@@ -217,10 +217,9 @@ namespace WebStore.Areas.Administrator.Controllers
             {
                 LocalReport lr = new LocalReport();
 
-                string p = Path.Combine(Server.MapPath("~/Reports"), "OrderReceipt.rdlc");
+                string p = Path.Combine(Server.MapPath("~/Reports"), "DirectSaleReceipt.rdlc");
 
                 lr.ReportPath = p;
-
 
                 var l = await salesService.GetSalesOrdersDetailsByOrderNumber(OrderNumber);
 

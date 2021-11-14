@@ -21,6 +21,8 @@ namespace WebStore.Data.EDMX
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.Customers = new HashSet<Customer>();
             this.Electronics = new HashSet<Electronic>();
+            this.Expenses = new HashSet<Expens>();
+            this.ExpenseTypes = new HashSet<ExpenseType>();
             this.Furnitures = new HashSet<Furniture>();
             this.Furnitures1 = new HashSet<Furniture>();
             this.Sales = new HashSet<Sale>();
@@ -61,6 +63,10 @@ namespace WebStore.Data.EDMX
         public virtual ICollection<Customer> Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Electronic> Electronics { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Expens> Expenses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExpenseType> ExpenseTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Furniture> Furnitures { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

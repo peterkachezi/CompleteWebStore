@@ -1,0 +1,678 @@
+﻿<div class="x_panel">
+    <div class="x_title">
+        <h2>Expenses </h2>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+
+        <form id="frmExpense" action="" method="post" novalidate="">
+
+
+            <div class="panel panel-default"><div class="panel-body bg-gray text-bold">Required Fields:</div></div>
+
+
+
+
+            <div class="field item form-group">
+                <label class="col-form-label col-md-3 col-sm-3  label-align">Expense Type<span class="required">*</span></label>
+                <div class="col-md-4 col-sm-4">
+                    <div class="row col-md-10">
+                        <select class="form-control" name="ExpenseTypeId">
+
+                            @if (ViewBag.ProductType != null)
+                            {
+                                foreach (var item in ViewBag.ProductType)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            }
+
+                        </select>
+
+                    </div>
+
+                    <div class="row col-md-2 ml-1">
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ModalCreateExpenseType" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i></button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="field item form-group">
+                <label class="col-form-label col-md-3 col-sm-3  label-align">Expense Amount<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6">
+                    <input class="form-control" name="Amount" data-validate-length-range="5,15" type="text">
+                </div>
+            </div>
+            <div class="field item form-group">
+                <label class="col-form-label col-md-3 col-sm-3  label-align">Expense Date<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6">
+                    <input class="form-control" name="ExpenseDate" required="required" type="date" value="@DateTime.Now.ToShortDateString()">
+                </div>
+            </div>
+
+            <div class="panel panel-default"><div class="panel-body bg-gray text-bold">Optional Fields:</div></div>
+
+
+
+            <div class="field item form-group">
+                <label for="inputRecurring" class="col-form-label col-md-3 col-sm-3  label-align">Is  Expense Recurring?</label>
+                <div class="col-sm-9">
+
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="IsRecurring" id="IsRecurring" value="0" onclick="enableDisableRecurringPeriod()" checked="checked"> No
+
+                        </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>
+                            <input type="radio" name="IsRecurring" id="IsRecurring" value="1" onclick="enableDisableRecurringPeriod()"> Yes
+                        </label>
+                    </div>
+                    If you select Yes, then the Expense will be automatically added by system every month.
+                </div>
+            </div>
+
+            <div class="field item form-group">
+                <label class="col-form-label col-md-3 col-sm-3  label-align">Add Recurring Expense<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6">
+                    <select class="form-control" name="RecurringExpense" id="inputRecurringPeriod">
+                        <option value="0" selected="">
+                        </option>
+                        <option value="1st of every month">
+                            1st of every month
+                        </option>
+                        <option value="2nd of every month">
+                            2nd of every month
+                        </option>
+                        <option value="3rd of every month">
+                            3rd of every month
+                        </option>
+                        <option value="4th of every month">
+                            4th of every month
+                        </option>
+                        <option value="5th of every month">
+                            5th of every month
+                        </option>
+                        <option value="6th of every month">
+                            6th of every month
+                        </option>
+                        <option value="7th of every month">
+                            7th of every month
+                        </option>
+                        <option value="8th of every month">
+                            8th of every month
+                        </option>
+                        <option value="9th of every month">
+                            9th of every month
+                        </option>
+                        <option value="10">
+                            10th of every month
+                        </option>
+                        <option value="11th of every month">
+                            11th of every month
+                        </option>
+                        <option value="12th of every month">
+                            12th of every month
+                        </option>
+                        <option value="13th of every month">
+                            13th of every month
+                        </option>
+                        <option value="14th of every month">
+                            14th of every month
+                        </option>
+                        <option value="15th of every month">
+                            15th of every month
+                        </option>
+                        <option value="116th of every month">
+                            16th of every month
+                        </option>
+                        <option value="17th of every month">
+                            17th of every month
+                        </option>
+                        <option value="18th of every month">
+                            18th of every month
+                        </option>
+                        <option value="19th of every month">
+                            19th of every month
+                        </option>
+                        <option value="20th of every month">
+                            20th of every month
+                        </option>
+                        <option value="21st of every month">
+                            21st of every month
+                        </option>
+                        <option value="22nd of every month">
+                            22nd of every month
+                        </option>
+                        <option value="23rd of every month">
+                            23rd of every month
+                        </option>
+                        <option value="24th of every month">
+                            24th of every month
+                        </option>
+                        <option value="25">
+                            25th of every month
+                        </option>
+                        <option value="26th of every month">
+                            26th of every month
+                        </option>
+                        <option value="27th of every month">
+                            27th of every month
+                        </option>
+                        <option value="28th of every month">
+                            28th of every month
+                        </option>
+                        <option value="29th of every month">
+                            29th of every month
+                        </option>
+                        <option value="30th of every month">
+                            30th of every month
+                        </option>
+                        <option value="31st of every month">
+                            31st of every month
+                        </option>
+                        <option value="End of every month">
+                            End of every month
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field item form-group">
+
+                <label for="inputExpenseDescription" class="col-form-label col-md-3 col-sm-3  label-align">Description</label>
+                <div class="col-sm-9">
+                    <textarea name="Description" class="form-control" id="inputExpenseDescription" rows="3"></textarea>
+                </div>
+
+            </div>
+
+
+            <div class="field item form-group">
+
+                <label for="inputExpenseDescription" class="col-form-label col-md-3 col-sm-3  label-align">Description</label>
+                <div class="col-sm-9">
+                    <input type="file" id="ReceiptAttachment2" class="file-upload" name="ReceiptAttachment2" />
+                </div>
+
+            </div>
+
+            <div class="ln_solid">
+                <div class="form-group">
+                    <div class="mt-2">
+                        <button type="button" id="btnSubmit" class="btn btn-primary pull-right">Submit</button>
+                        <button type="reset" class="btn btn-default">Back</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalCreateExpenseType" tabindex="-1" role="dialog" aria-labelledby="ModalCreateExpenseTypeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalCreateExpenseTypeLabel"> Add Expense Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmCreateExpenseType">
+
+
+                    <div class="">
+                        <label for="exampleInputEmail1">Expense Type Name</label>
+                        <input type="email" class="form-control" id="txtName" name="Name" aria-describedby="emailHelp" placeholder="e.g Rent or mortgage payments">
+                    </div>
+
+
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="SaveData()" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/Content/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<style>
+
+    .text-bold, .text-bold.table td, .text-bold.table th {
+        font-weight: 700;
+    }
+
+    .bg-gray {
+        color: #000;
+        background-color: #d2d6de !important;
+    }
+
+    .panel-body {
+        padding: 15px;
+    }
+
+    .panel {
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+        box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+    }
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+
+    $(document).ready(function () {
+        GetAllData();
+
+    });
+
+    $('#btnSubmit').click(function (evt) {
+
+
+        $("#divLoader").show();
+        // Stop the button from submitting the form:
+        evt.preventDefault();
+
+        // Serialize the entire form:
+        var data = new FormData(this.form);
+
+
+        $.ajax({
+            url: "/Administrator/Expenses/Create",
+            type: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+
+                    }), setTimeout(function () { window.location = "/Administrator/Expenses/"; }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                    $("#divLoader").hide();
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+            },
+            complete: function () {
+                HideLoader();
+            }
+
+
+        });
+
+    });
+
+
+
+
+    function GetAllData() {
+
+        var t = $('#tblExpenses').DataTable({
+            "ajax": {
+                "url": "/Administrator/ExpenseTypes/GetExpenseType",
+                "type": "GET",
+                "datatype": "json"
+            },
+
+            "columns": [
+
+                { "data": "Id" },
+                { "data": "Name" },
+                { "data": "NewCreateDate" },
+                { "data": "CreatedByName" },
+
+                {
+                    data: null,
+                    mRender: function (data, type, row) {
+                        return "<a href='#' class='btn-sm success'    onclick=GetRecord('" + row.Id + "'); >Edit</a> / <a href='#' class='btn-sm danger'    onclick=DeleteRecord('" + row.Id + "'); >Delete</a>";
+
+                    }
+                }
+
+            ]
+
+        });
+        t.on('order.dt search.dt', function () {
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    }
+
+    function DeleteRecord(e) {
+
+        $("#divLoader").show();
+        var id = e;
+
+        console.log(id);
+
+
+        swal(
+
+            {
+                title: "Are you sure?",
+
+                text: "Once deleted, you will not be able to recover this  file!",
+
+                type: "success",
+
+                showCancelButton: true,
+
+                confirmButtonColor: "##62b76e",
+
+                confirmButtonText: "Yes, Procceed!",
+
+                closeOnConfirm: false
+            },
+
+            function () {
+
+                $.ajax({
+
+                    type: "GET",
+
+                    url: "/Administrator/ExpenseTypes/Delete/" + id,
+
+                    success: function (response) {
+
+                        if (response.success) {
+
+                            swal({
+
+                                position: 'top-end',
+
+                                type: "success",
+
+                                title: response.responseText,
+
+                                showConfirmButton: false,
+
+                                // timer: 2000,
+
+                            });
+                            setTimeout(function () { location.reload(); }, 3000);
+
+                        }
+
+                        else {
+                            swal({
+                                position: 'top-end',
+                                type: "error",
+                                title: response.responseText,
+                                showConfirmButton: true,
+                                timer: 5000,
+                            });
+
+                        }
+
+                    },
+                    error: function (response) {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: "Server error ,kindly contact the admin for assistance",
+                            showConfirmButton: false,
+                            timer: 5000,
+                        });
+
+                    }
+
+                })
+
+            }
+        );
+    }
+
+    function SaveData() {
+
+        if ($('#txtName').val() == '') {
+            $('#txtName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+
+        $("#divLoader").show();
+
+        $("#ModalCreateExpenseType").modal('hide');
+
+        var data = $("#frmCreateExpenseType").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/ExpenseTypes/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                    $("#divLoader").hide();
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+                $("#divLoader").hide();
+            }
+        })
+
+    }
+
+
+
+
+    function ExpenseData() {
+
+
+
+        $("#divLoader").show();
+
+
+        var data = $("#frmExpense").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/Expenses/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    }
+
+    function GetRecord(e) {
+        var id = e;
+
+        $.get("/Administrator/ExpenseTypes/GetById/?Id=" + id, function (data, status) {
+            console.log(data);
+            if (data == null) {
+                alert("Does not exist");
+            } else {
+
+                $("#txtId").val(data.data.Id);
+                $("#txtName1").val(data.data.Name);
+
+
+                $('#ModalUpdateExpenseType').modal({ backdrop: 'static', keyboard: false })
+                $("#ModalUpdateExpenseType").modal('show');
+            }
+
+        });
+    };
+
+
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+
+</script>
+
+

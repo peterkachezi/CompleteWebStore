@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="WinkadStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -198,12 +208,15 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ExpenseTypeId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ExpenseAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="ExpenseDate" Type="datetime" Nullable="false" />
+          <Property Name="IsRecurring" Type="bigint" Nullable="false" />
+          <Property Name="RecurringExpense" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ReceiptAttachment" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ReceiptAttachment" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ReceiptAttachmentDesc" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ExpenseTypes">
           <Key>
@@ -583,6 +596,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Expenses_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Expenses_ExpenseTypes">
           <End Role="ExpenseTypes" Type="Self.ExpenseTypes" Multiplicity="1" />
           <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
@@ -592,6 +617,18 @@
             </Principal>
             <Dependent Role="Expenses">
               <PropertyRef Name="ExpenseTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseTypes_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="ExpenseTypes" Type="Self.ExpenseTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExpenseTypes">
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -788,6 +825,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="WinkadStoreModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -861,9 +899,17 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Electronics" EntitySet="Electronics" />
           </AssociationSet>
+          <AssociationSet Name="FK_Expenses_AspNetUsers" Association="Self.FK_Expenses_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
           <AssociationSet Name="FK_Expenses_ExpenseTypes" Association="Self.FK_Expenses_ExpenseTypes">
             <End Role="ExpenseTypes" EntitySet="ExpenseTypes" />
             <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseTypes_AspNetUsers" Association="Self.FK_ExpenseTypes_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ExpenseTypes" EntitySet="ExpenseTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_Furnitures_AspNetUsers" Association="Self.FK_Furnitures_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -935,6 +981,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="WinkadStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="WinkadStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="WinkadStoreModel.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="WinkadStoreModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="WinkadStoreModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="WinkadStoreModel.AspNetUserLogin" />
@@ -986,6 +1033,14 @@
           <AssociationSet Name="FK_Electronics_AspNetUsers" Association="WinkadStoreModel.FK_Electronics_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="Electronic" EntitySet="Electronics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenses_AspNetUsers" Association="WinkadStoreModel.FK_Expenses_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Expens" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExpenseTypes_AspNetUsers" Association="WinkadStoreModel.FK_ExpenseTypes_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="ExpenseType" EntitySet="ExpenseTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_Furnitures_AspNetUsers" Association="WinkadStoreModel.FK_Furnitures_AspNetUsers">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -1072,6 +1127,16 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -1127,6 +1192,8 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="WinkadStoreModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="Customers" Relationship="WinkadStoreModel.FK_Customers_AspNetUsers" FromRole="AspNetUser" ToRole="Customer" />
           <NavigationProperty Name="Electronics" Relationship="WinkadStoreModel.FK_Electronics_AspNetUsers" FromRole="AspNetUser" ToRole="Electronic" />
+          <NavigationProperty Name="Expenses" Relationship="WinkadStoreModel.FK_Expenses_AspNetUsers" FromRole="AspNetUser" ToRole="Expens" />
+          <NavigationProperty Name="ExpenseTypes" Relationship="WinkadStoreModel.FK_ExpenseTypes_AspNetUsers" FromRole="AspNetUser" ToRole="ExpenseType" />
           <NavigationProperty Name="Furnitures" Relationship="WinkadStoreModel.FK_Furnitures_AspNetUsers" FromRole="AspNetUser" ToRole="Furniture" />
           <NavigationProperty Name="Furnitures1" Relationship="WinkadStoreModel.FK_Furnitures_AspNetUsers1" FromRole="AspNetUser" ToRole="Furniture" />
           <NavigationProperty Name="Sales" Relationship="WinkadStoreModel.FK_Orders_AspNetUsers" FromRole="AspNetUser" ToRole="Sale" />
@@ -1283,12 +1350,16 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="ExpenseTypeId" Type="Guid" Nullable="false" />
-          <Property Name="ExpenseAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="ExpenseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRecurring" Type="Int64" Nullable="false" />
+          <Property Name="RecurringExpense" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ReceiptAttachment" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiptAttachment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiptAttachmentDesc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="WinkadStoreModel.FK_Expenses_AspNetUsers" FromRole="Expens" ToRole="AspNetUser" />
           <NavigationProperty Name="ExpenseType" Relationship="WinkadStoreModel.FK_Expenses_ExpenseTypes" FromRole="Expens" ToRole="ExpenseType" />
         </EntityType>
         <EntityType Name="ExpenseType">
@@ -1299,6 +1370,7 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="WinkadStoreModel.FK_ExpenseTypes_AspNetUsers" FromRole="ExpenseType" ToRole="AspNetUser" />
           <NavigationProperty Name="Expenses" Relationship="WinkadStoreModel.FK_Expenses_ExpenseTypes" FromRole="ExpenseType" ToRole="Expens" />
         </EntityType>
         <EntityType Name="Furniture">
@@ -1628,6 +1700,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Expenses_AspNetUsers">
+          <End Type="WinkadStoreModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="WinkadStoreModel.Expens" Role="Expens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expens">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExpenseTypes_AspNetUsers">
+          <End Type="WinkadStoreModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="WinkadStoreModel.ExpenseType" Role="ExpenseType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExpenseType">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Furnitures_AspNetUsers">
           <End Type="WinkadStoreModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
           <End Type="WinkadStoreModel.Furniture" Role="Furniture" Multiplicity="*" />
@@ -1878,6 +1974,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WinkadStoreModelStoreContainer" CdmEntityContainer="WinkadStoreEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="WinkadStoreModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="WinkadStoreModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
@@ -2073,12 +2179,15 @@
           <EntitySetMapping Name="Expenses">
             <EntityTypeMapping TypeName="WinkadStoreModel.Expens">
               <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="ReceiptAttachmentDesc" ColumnName="ReceiptAttachmentDesc" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ReceiptAttachment" ColumnName="ReceiptAttachment" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RecurringExpense" ColumnName="RecurringExpense" />
+                <ScalarProperty Name="IsRecurring" ColumnName="IsRecurring" />
                 <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
-                <ScalarProperty Name="ExpenseAmount" ColumnName="ExpenseAmount" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="ExpenseTypeId" ColumnName="ExpenseTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

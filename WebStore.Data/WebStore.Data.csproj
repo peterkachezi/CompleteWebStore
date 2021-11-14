@@ -127,6 +127,9 @@
     <Compile Include="EDMX\CustomerOrder.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EDMX\C__MigrationHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDMX\DeliveryFee.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

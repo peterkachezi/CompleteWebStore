@@ -71,7 +71,7 @@ namespace WebStore.Controllers
             }
         }
 
-        [HttpPost]
+
         public async Task<ActionResult> SaveCallBack(DarajaResponseAfterUserEntersPin darajaResponse)
         {
             try
@@ -96,10 +96,7 @@ namespace WebStore.Controllers
 
                         PhoneNumber = darajaResponse.Body.stkCallback.CallbackMetadata.Item.Where(p => p.Name.Contains("PhoneNumber")).FirstOrDefault().Value.ToString(),
 
-                        FirstName = darajaResponse.Body.stkCallback.CallbackMetadata.Item.Where(p => p.Name.Contains("FirstName")).FirstOrDefault().Value.ToString(),
-
-                        LastName = darajaResponse.Body.stkCallback.CallbackMetadata.Item.Where(p => p.Name.Contains("LastName")).FirstOrDefault().Value.ToString(),
-
+                   
                     };
 
                     var result = await paymentService.SaveCallBackAsync(s);

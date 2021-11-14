@@ -1,0 +1,473 @@
+﻿
+@{
+    ViewBag.Title = "Furnitures";
+}
+
+<div class="">
+    <div class="x_panel">
+        <div class="x_title">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <h6 class="Header"><i class="fa fa-money"></i> Expense Types</h6>
+                </div>
+                <div class="col-md-9">
+                    <button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#ModalCreateExpenseType" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-circle"></i>  </button>
+                </div>
+
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+
+
+            <div class="">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+
+                            <table id="tblExpenses" class="table table-striped table-bordered dt-responsive nowrap table-sm" cellspacing="0" width="100%">
+
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Entry Date</th>
+                                        <th scope="col">Created By</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalCreateExpenseType" tabindex="-1" role="dialog" aria-labelledby="ModalCreateExpenseTypeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalCreateExpenseTypeLabel"> Add Expense Type</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmCreateExpenseType">
+
+
+                    <div class="">
+                        <label for="exampleInputEmail1">Expense Type Name</label>
+                        <input type="email" class="form-control" id="txtName" name="Name" aria-describedby="emailHelp" placeholder="e.g Rent or mortgage payments">
+                    </div>
+
+                                        
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="SaveData()" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalUpdateExpenseType" tabindex="-1" role="dialog" aria-labelledby="ModalUpdateExpenseTypeLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalUpdateExpenseTypeLabel"> Update Furniture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmUdateExpenseType">
+                    <input type="hidden" name="Id" id="txtId" />
+
+                    <div class="">
+                        <label for="exampleInputEmail1">Expense Type Name</label>
+                        <input type="email" class="form-control" id="txtName1" name="Name" aria-describedby="emailHelp" placeholder="e.g Rent or mortgage payments ">
+                    </div>
+
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="UpdateData()" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divLoader" style="display:none;" class="loader">
+
+    <img src="~/Content/loaders/loading-23.gif" alt="Loader" style="width:20em;" />
+
+</div>
+
+<style>
+
+    .success {
+        background: #26B99A;
+        color: #fff;
+    }
+
+    .danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.1rem;
+        max-width: calc(100% - 40px);
+    }
+
+
+    .loader {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        top: 50%;
+        left: 50%;
+        margin: -128px 0 0 -128px;
+        z-index: 1000;
+    }
+
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+        line-height: 70px;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+
+    $(document).ready(function () {
+        GetAllData();
+
+    });
+
+    function GetAllData() {
+
+        var t = $('#tblExpenses').DataTable({
+            "ajax": {
+                "url": "/Administrator/ExpenseTypes/GetExpenseType",
+                "type": "GET",
+                "datatype": "json"
+            },
+
+            "columns": [
+
+                { "data": "Id" },
+                { "data": "Name" },
+                { "data": "NewCreateDate" },
+                { "data": "CreatedByName" },
+
+                {
+                    data: null,
+                    mRender: function (data, type, row) {
+                        return "<a href='#' class='btn-sm success'    onclick=GetRecord('" + row.Id + "'); >Edit</a> / <a href='#' class='btn-sm danger'    onclick=DeleteRecord('" + row.Id + "'); >Delete</a>";
+
+                    }
+                }
+
+            ]
+
+        });
+        t.on('order.dt search.dt', function () {
+            t.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
+    }
+
+    function DeleteRecord(e) {
+
+        $("#divLoader").show();
+        var id = e;
+
+        console.log(id);
+
+
+        swal(
+
+            {
+                title: "Are you sure?",
+
+                text: "Once deleted, you will not be able to recover this  file!",
+
+                type: "success",
+
+                showCancelButton: true,
+
+                confirmButtonColor: "##62b76e",
+
+                confirmButtonText: "Yes, Procceed!",
+
+                closeOnConfirm: false
+            },
+
+            function () {
+
+                $.ajax({
+
+                    type: "GET",
+
+                    url: "/Administrator/ExpenseTypes/Delete/" + id,
+
+                    success: function (response) {
+
+                        if (response.success) {
+
+                            swal({
+
+                                position: 'top-end',
+
+                                type: "success",
+
+                                title: response.responseText,
+
+                                showConfirmButton: false,
+
+                                // timer: 2000,
+
+                            });
+                            setTimeout(function () { location.reload(); }, 3000);
+
+                        }
+
+                        else {
+                            swal({
+                                position: 'top-end',
+                                type: "error",
+                                title: response.responseText,
+                                showConfirmButton: true,
+                                timer: 5000,
+                            });
+
+                        }
+
+                    },
+                    error: function (response) {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: "Server error ,kindly contact the admin for assistance",
+                            showConfirmButton: false,
+                            timer: 5000,
+                        });
+
+                    }
+
+                })
+
+            }
+        );
+    }
+
+    function SaveData() {
+
+        if ($('#txtName').val() == '') {
+            $('#txtName').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+ 
+
+   
+        $("#divLoader").show();
+
+        $("#ModalCreateExpenseType").modal('hide');
+
+        var data = $("#frmCreateExpenseType").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/ExpenseTypes/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                    $("#divLoader").hide();
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+                $("#divLoader").hide();
+            }
+        })
+
+    }
+    function UpdateData() {
+
+        if ($('#txtName1').val() == '') {
+            $('#txtName1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Name is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#divLoader").show();
+        $("#ModalUpdateExpenseType").modal('hide');
+
+        var data = $("#frmUdateExpenseType").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/ExpenseTypes/Update",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    }
+
+    function GetRecord(e) {
+        var id = e;
+
+        $.get("/Administrator/ExpenseTypes/GetById/?Id=" + id, function (data, status) {
+            console.log(data);
+            if (data == null) {
+                alert("Does not exist");
+            } else {
+
+                $("#txtId").val(data.data.Id);
+                $("#txtName1").val(data.data.Name);
+          
+
+                $('#ModalUpdateExpenseType').modal({ backdrop: 'static', keyboard: false })
+                $("#ModalUpdateExpenseType").modal('show');
+            }
+
+        });
+    };
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+
+</script>
+
+
+

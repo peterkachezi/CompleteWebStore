@@ -12,7 +12,7 @@ namespace WebStore.Data.Services.ExpenseModule
 {
     public class ExpenseService : IExpenseService
     {
-        public async Task<bool> AddExpense(ExpenseDTO expenseDTO)
+        public async Task<bool> Create(ExpenseDTO expenseDTO)
         {
             try
             {
@@ -21,17 +21,23 @@ namespace WebStore.Data.Services.ExpenseModule
                 {
                     var s = new Expens
                     {
-                        Id = Guid.NewGuid(),
+                        Id = expenseDTO.Id,
 
                         ExpenseTypeId = expenseDTO.ExpenseTypeId,
 
-                        ExpenseAmount = expenseDTO.ExpenseAmount,
+                        Amount = expenseDTO.Amount,
 
                         ExpenseDate = expenseDTO.ExpenseDate,
+
+                        IsRecurring = expenseDTO.IsRecurring,
+
+                        RecurringExpense = expenseDTO.RecurringExpense,
 
                         Description = expenseDTO.Description,
 
                         ReceiptAttachment = expenseDTO.ReceiptAttachment,
+
+                        ReceiptAttachmentDesc = expenseDTO.ReceiptAttachmentDesc,
 
                         CreateDate=DateTime.Now,
 
@@ -53,7 +59,7 @@ namespace WebStore.Data.Services.ExpenseModule
             }
         }
 
-        public async Task<bool> DeleteExpense(Guid Id)
+        public async Task<bool> Delete(Guid Id)
         {
             try
             {
@@ -83,7 +89,7 @@ namespace WebStore.Data.Services.ExpenseModule
             }
         }
 
-        public async Task<bool> EditExpense(Guid Id, ExpenseDTO expenseDTO)
+        public async Task<bool> Update(ExpenseDTO expenseDTO)
         {
             try
             {
@@ -91,10 +97,17 @@ namespace WebStore.Data.Services.ExpenseModule
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
-                        var s = await db.Expenses.FindAsync(Id);
+                        var s = await db.Expenses.FindAsync(expenseDTO.Id);
                         {
 
-                            s.ExpenseAmount = expenseDTO.ExpenseAmount;
+
+                            s.ExpenseDate = expenseDTO.ExpenseDate;
+
+                            s.IsRecurring = expenseDTO.IsRecurring;
+
+                            s.RecurringExpense = expenseDTO.RecurringExpense;
+
+                            s.Amount = expenseDTO.Amount;
 
                             s.ExpenseDate = expenseDTO.ExpenseDate;
 
@@ -119,7 +132,7 @@ namespace WebStore.Data.Services.ExpenseModule
             }
         }
 
-        public async Task<List<ExpenseDTO>> GetAllExpenses()
+        public async Task<List<ExpenseDTO>> GetAll()
         {
             try
             {
@@ -139,13 +152,19 @@ namespace WebStore.Data.Services.ExpenseModule
 
                             ExpenseTypeName = item.ExpenseType.Name,
 
-                            ExpenseAmount = item.ExpenseAmount,
+                            Amount= item.Amount,
 
                             ExpenseDate = item.ExpenseDate,
 
                             Description = item.Description,
 
                             ReceiptAttachment = item.ReceiptAttachment,
+
+                            ReceiptAttachmentDesc = item.ReceiptAttachmentDesc,
+
+                            IsRecurring = item.IsRecurring,
+
+                            RecurringExpense = item.RecurringExpense,
 
                             CreateDate = item.CreateDate,
 
@@ -166,7 +185,7 @@ namespace WebStore.Data.Services.ExpenseModule
             }
         }
 
-        public async Task<ExpenseDTO> GetExpenseById(Guid Id)
+        public async Task<ExpenseDTO> GetById(Guid Id)
         {
             try
             {
@@ -180,7 +199,7 @@ namespace WebStore.Data.Services.ExpenseModule
 
                         ExpenseTypeId = s.ExpenseTypeId,
 
-                        ExpenseAmount = s.ExpenseAmount,
+                        Amount = s.Amount,
 
                         ExpenseDate = s.ExpenseDate,
 
@@ -202,5 +221,7 @@ namespace WebStore.Data.Services.ExpenseModule
                 return null;
             }
         }
+
+        
     }
 }

@@ -9,10 +9,10 @@ namespace WebStore.Data.Services.ExpenseModule
 {
     public interface IExpenseService
     {
-        Task<bool> AddExpense(ExpenseDTO expenseDTO);
-        Task<bool> EditExpense(Guid Id,ExpenseDTO expenseDTO);
-        Task<bool> DeleteExpense(Guid Id);
-        Task<List<ExpenseDTO>> GetAllExpenses();
-        Task<ExpenseDTO> GetExpenseById(Guid Id);
+        Task<bool> Create(ExpenseDTO expenseDTO);
+        Task<bool> Update(ExpenseDTO expenseDTO);
+        Task<bool> Delete(Guid Id);
+        Task<List<ExpenseDTO>> GetAll();
+        Task<ExpenseDTO> GetById(Guid Id);
     }
 }

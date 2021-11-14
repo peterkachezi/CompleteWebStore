@@ -12,7 +12,7 @@ namespace WebStore.Data.Services.ExpenseTypeModule
 {
     public class ExpenseTypeService : IExpenseTypeService
     {
-        public async Task<bool> AddExpenseType(ExpenseTypeDTO expenseTypeDTO)
+        public async Task<bool> Create(ExpenseTypeDTO expenseTypeDTO)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace WebStore.Data.Services.ExpenseTypeModule
             }
         }
 
-        public async Task<bool> DeleteExpenseType(Guid Id)
+        public async Task<bool> Delete(Guid Id)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace WebStore.Data.Services.ExpenseTypeModule
             }
         }
 
-        public async Task<bool> EditExpenseType(Guid Id, ExpenseTypeDTO expenseTypeDTO)
+        public async Task<bool> Update(ExpenseTypeDTO expenseTypeDTO)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace WebStore.Data.Services.ExpenseTypeModule
                 {
                     using (var transaction = db.Database.BeginTransaction())
                     {
-                        var s = await db.ExpenseTypes.FindAsync(Id);
+                        var s = await db.ExpenseTypes.FindAsync(expenseTypeDTO.Id);
                         {
                             s.Name = expenseTypeDTO.Name;
 
@@ -100,7 +100,7 @@ namespace WebStore.Data.Services.ExpenseTypeModule
             }
         }
 
-        public async Task<List<ExpenseTypeDTO>> GetAllExpenseTypes()
+        public async Task<List<ExpenseTypeDTO>> GetAll()
         {
             try
             {
@@ -120,6 +120,8 @@ namespace WebStore.Data.Services.ExpenseTypeModule
 
                             CreatedBy = item.CreatedBy,
 
+                            CreatedByName = item.AspNetUser.FirstName +" "+ item.AspNetUser.LastName,
+
                             CreateDate = item.CreateDate
                         };
 
@@ -136,7 +138,7 @@ namespace WebStore.Data.Services.ExpenseTypeModule
             }
         }
 
-        public async Task<ExpenseTypeDTO> GetExpenseById(Guid Id)
+        public async Task<ExpenseTypeDTO> GetById(Guid Id)
         {
             try
             {
@@ -151,6 +153,8 @@ namespace WebStore.Data.Services.ExpenseTypeModule
                         Name = s.Name,
 
                         CreatedBy = s.CreatedBy,
+
+                        CreatedByName = s.AspNetUser.FirstName +" "+ s.AspNetUser.LastName,
 
                         CreateDate = s.CreateDate
                     };

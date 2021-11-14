@@ -305,7 +305,7 @@ namespace WebStore.Data.Services.SalesModule
 
                         //CustomerName = item.Sale.Customer.FirstName + " " + item.Sale.Customer.MiddleName + " " + item.Sale.Customer.LastName,
 
-                        ProductName = item.Product.Name + " " + item.Product.ProductPackaging.Name + " " + item.Product.ProductPackaging.Unit,
+                        ProductName = item.Product.ProductPackaging.Name + " " + item.Product.ProductPackaging.Unit,
 
                         CreateByName = item.Sale.AspNetUser.FirstName + " " + item.Sale.AspNetUser.LastName,
 

@@ -418,6 +418,8 @@
     <Compile Include="Areas\Administrator\Controllers\AssetsManagerController.cs" />
     <Compile Include="Areas\Administrator\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Administrator\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\ExpensesController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\ExpenseTypesController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ItextController.cs" />
     <Compile Include="Areas\Administrator\Controllers\ManageStockController.cs" />
     <Compile Include="Areas\Administrator\Controllers\OrdersController.cs" />
@@ -455,12 +457,6 @@
     </Compile>
     <Compile Include="Reports\CustomerReport.aspx.designer.cs">
       <DependentUpon>CustomerReport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\ECardReport.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\Invoice.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\ReportDataSet1.Designer.cs" />
     <Compile Include="Reports\ReportViewer.aspx.cs">
@@ -502,6 +498,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\cart\Cinema1.png" />
+    <Content Include="Content\cart\Cinema2.png" />
+    <Content Include="Content\cart\Cinema3.png" />
+    <Content Include="Content\cart\Jerry-Bruckheimer-producer.png" />
+    <Content Include="Content\cart\Kathleen-Kennedy-producer.png" />
+    <Content Include="Content\cart\Kevin-Feige-producer.png" />
+    <Content Include="Content\cart\movie1.png" />
     <Content Include="Content\dashboard\bootstrap.min.css" />
     <Content Include="Content\dashboard\build\css\custom.css" />
     <Content Include="Content\dashboard\build\css\custom.min.css" />
@@ -5538,6 +5541,9 @@
       <DependentUpon>ReportDataSet1.xsd</DependentUpon>
     </Content>
     <Content Include="Areas\Administrator\Views\Sale\GetCustomerOrdersDetails.cshtml" />
+    <Content Include="Areas\Administrator\Views\Expenses\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\ExpenseTypes\Index.cshtml" />
+    <Content Include="Areas\Administrator\Views\Expenses\AddExpense.cshtml" />
     <None Include="Reports\ReportDataSet1.xsd" />
     <Content Include="Reports\ReportDataSet1.xss">
       <DependentUpon>ReportDataSet1.xsd</DependentUpon>
@@ -5611,6 +5617,8 @@
     <Folder Include="Areas\Agent\Data\" />
     <Folder Include="Areas\Agent\Views\Orders\" />
     <Folder Include="Areas\PointOfSale\Data\" />
+    <Folder Include="Content\ExpenseFiles\" />
+    <Folder Include="Views\PdfCreator\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -5637,6 +5645,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Reports\CustomesReport.rdlc" />
     <EmbeddedResource Include="Reports\OrderReceipt.rdlc" />
+    <EmbeddedResource Include="Reports\DirectSaleReceipt.rdlc" />
     <EmbeddedResource Include="Reports\Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>

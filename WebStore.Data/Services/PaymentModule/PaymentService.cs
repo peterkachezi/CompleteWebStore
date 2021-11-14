@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -148,11 +149,43 @@ namespace WebStore.Data.Services.PaymentModule
 
 
         }
+
+        private static DateTime? GetDateTimeFromInt(long? dateAsLong, bool hasTime = true)
+        {
+            if (dateAsLong.HasValue && dateAsLong > 0)
+            {
+                if (hasTime)
+                {
+                    // sometimes input is 14 digit and sometimes 16
+                    var numberOfDigits = (int)Math.Floor(Math.Log10(dateAsLong.Value) + 1);
+
+                    if (numberOfDigits > 14)
+                    {
+                        dateAsLong /= (int)Math.Pow(10, (numberOfDigits - 14));
+                    }
+                }
+
+                if (DateTime.TryParseExact(dateAsLong.ToString(), hasTime ? "yyyyMMddHHmmss" : "yyyyMMdd",
+                                          CultureInfo.InvariantCulture,
+                                          DateTimeStyles.None, out DateTime dt))
+                {
+                    return dt;
+                }
+            }
+
+            return null;
+        }
+
+
+
         public async Task<PaymentDTO> SaveCallBackAsync(PaymentDTO paymentDTO)
         {
 
             try
             {
+                long timestamp = long.Parse(paymentDTO.TransactionDate);
+
+                DateTime NewTransactionDate = GetDateTimeFromInt(timestamp).Value;
 
                 var s = new Payment
 
@@ -169,7 +202,7 @@ namespace WebStore.Data.Services.PaymentModule
 
                     TransactionNumber = paymentDTO.TransactionNumber,
 
-                    TransactionDate = paymentDTO.TransactionDate,
+                    TransactionDate = NewTransactionDate.ToString(),
 
                     PhoneNumber = paymentDTO.PhoneNumber,
 

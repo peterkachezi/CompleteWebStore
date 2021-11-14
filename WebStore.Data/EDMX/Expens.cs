@@ -16,13 +16,17 @@ namespace WebStore.Data.EDMX
     {
         public System.Guid Id { get; set; }
         public System.Guid ExpenseTypeId { get; set; }
-        public decimal ExpenseAmount { get; set; }
+        public decimal Amount { get; set; }
         public System.DateTime ExpenseDate { get; set; }
+        public long IsRecurring { get; set; }
+        public string RecurringExpense { get; set; }
         public string Description { get; set; }
         public string ReceiptAttachment { get; set; }
         public System.DateTime CreateDate { get; set; }
         public string CreatedBy { get; set; }
+        public string ReceiptAttachmentDesc { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         public virtual ExpenseType ExpenseType { get; set; }
     }
 }

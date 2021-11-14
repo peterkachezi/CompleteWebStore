@@ -484,19 +484,6 @@
 
 
 
-        if ($('#txtQuantity').val() > $('#txtCurrentQuantity').val()) {
-            $('#txtQuantity').focus();
-            swal({
-                position: 'top-end',
-                type: "error",
-                title: "The quantity entered exceeds the available stock",
-                showConfirmButton: true,
-            });
-
-            return false;
-        }
-
-
 
 
 

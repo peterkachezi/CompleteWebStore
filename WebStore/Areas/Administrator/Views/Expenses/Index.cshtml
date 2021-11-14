@@ -1,0 +1,619 @@
+﻿@model IEnumerable<WebStore.Data.DTOs.ExpenseModule.ExpenseDTO>
+
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<div class="col-md-12 col-sm-12 ">
+    <div class="x_panel">
+        <div class="x_title">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <h6 class="Header"><i class="fa fa-usd"></i> Expenses</h6>
+                </div>
+                <div class="col-md-9">
+                    @*<button type="button" class="btn btn-success btn-sm  pull-right" data-toggle="modal" data-target="#ModalCreateProduct"><i class="fa fa-plus-circle"></i> </button>*@
+                    <a class="btn btn-success btn-sm  pull-right" href="~/Administrator/Product/CreateProduct/"><i class="fa fa-plus-circle"></i></a>
+
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card-box table-responsive">
+
+                        <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap table-sm" cellspacing="0" width="100%">
+
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Expense Date</th>
+                                    <th>Type Name</th>
+                                    <th>Amount</th>
+                                    <th>Description</th>
+                                    <th>RecurringExpense</th>
+
+                                    <th>Create Date</th>
+                                    <th>Download File</th>
+                                    @*<th>Action</th>*@
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    int count = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.ExpenseDate.ToShortDateString()</td>
+
+                                            <td>@item.ExpenseTypeName</td>
+                                            <td>@item.Amount</td>
+                                            <td>@item.Description</td>
+                                            <td>@item.RecurringExpense</td>
+
+
+                                            <td>@item.CreateDate.ToShortDateString()</td>
+                                            <td style="color:blue;">
+                                                @item.ReceiptAttachmentDesc
+                                                <a class="pull-right" href="/Administrator/Expenses/DownlodExpenseFiles?FileName=@item.ReceiptAttachment" value="@item.Id"> <i class="fa fa-download" aria-hidden="true"></i></a>
+
+
+                                            </td>
+                                            @*<td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-success dropdown-toggle  btn-sm" style="height: 1.5rem;" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Active
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="#" onclick="GetProductInformation('@item.Id')" value="@item.Id">Edit Information</a>
+                                                        <a class="dropdown-item" href="#" onclick="DeleteRecord('@item.Id')" value="@item.Id">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>*@
+                                        </tr>
+                                        count++;
+                                    }
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalCreateProduct" tabindex="-1" role="dialog" aria-labelledby="ModalCreateProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalCreateProductLabel">Create Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmCreateProduct" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Product Name</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtName" value="Winkad Fresh Drops" class="form-control" type="text" name="Name" readonly="readonly">
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Select Packaging</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select class="form-control" name="PackagingId">
+                                @if (ViewBag.Packaging != null)
+                                {
+                                    foreach (var item in ViewBag.Packaging)
+                                    {
+                                        <option value="@item.Id">@item.FullName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <button type="button" class="btn btn-success btn-sm" onclick="OpenProductPackingForm()"><i class="fa fa-plus-circle"></i> </button>
+
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Cost Price</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtCostPrice" class="form-control numericOnly" type="text" name="CostPrice">
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Selling Price</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtSellingPrice" class="form-control numericOnly" type="text" name="SellingPrice">
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Re-Order Level</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtReOrderLevel" class="form-control numericOnly" type="text" name="ReOrderLevel">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" id="btnSubmitProduct" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalCreateProductPacking" tabindex="-1" role="dialog" aria-labelledby="ModalCreateProductPackingLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalCreateProductPackingLabel"> Create New</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form id="frmCreateProduct">
+
+
+                    <div class="">
+                        <label>Unit of Measure Name</label>
+
+                        <input id="txtName" class="form-control" type="text" name="Name">
+
+                    </div>
+
+                    <br />
+                    <div class="">
+                        <label>Select Unit of Measure</label>
+
+                        <select class="form-control" name="Unit">
+                            <option value="ltr">ltr</option>
+                            <option value="ml">ml</option>
+
+                        </select>
+
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" id="btnSubmit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="ModalUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="ModalUpdateProductLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title Header" id="ModalUpdateProductLabel">Update Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <form id="frmUpdateProduct" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+
+                    <input type="hidden" id="txtId1" name="Id" />
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Product Name</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtName" value="Winkad Fresh Drops" class="form-control" type="text" name="Name1" readonly="readonly">
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Select Packaging</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select class="form-control" name="PackagingId" id="txtPackagingId" disabled>
+                                @if (ViewBag.Packaging != null)
+                                {
+                                    foreach (var item in ViewBag.Packaging)
+                                    {
+                                        <option value="@item.Id">@item.FullName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Cost Price</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtCostPrice1" class="form-control numericOnly" type="text" name="CostPrice">
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Selling Price</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtSellingPrice1" class="form-control numericOnly" type="text" name="SellingPrice">
+                        </div>
+                    </div>
+
+                    <div class="item form-group">
+                        <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Re-Order Level</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <input id="txtReOrderLevel1" class="form-control numericOnly" type="text" name="ReOrderLevel">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" id="btnSubmitUpdate" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .Title {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.5rem;
+    }
+
+    .Header {
+        font-weight: 600;
+        color: #45ca9f;
+        font-size: 1.3rem;
+        max-width: calc(100% - 40px);
+    }
+</style>
+
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/sweetalart/sweetalert.min.css" rel="stylesheet" />
+<script src="~/Content/sweetalart/sweetalert.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $('#dataTable').DataTable();
+
+    });
+
+
+    function OpenProductPackingForm() {
+
+        $("#ModalCreateProduct").modal('hide');
+
+        $("#ModalCreateProductPacking").modal('show');
+
+    }
+
+
+    $("#btnSubmitProduct").click(function () {
+
+        if ($('#txtCostPrice').val() == '') {
+            $('#txtCostPrice').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Cost Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtSellingPrice').val() == '') {
+            $('#txtSellingPrice').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Selling Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#ModalCreateProduct").modal('hide');
+
+        var data = $("#frmCreateProduct").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/Product/Create",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    })
+
+
+    $("#btnSubmitUpdate").click(function () {
+
+        if ($('#txtCostPrice1').val() == '') {
+            $('#txtCostPrice1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Cost Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+        if ($('#txtSellingPrice1').val() == '') {
+            $('#txtSellingPrice1').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "Selling Price is a required field",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
+
+
+        $("#ModalUpdateProduct").modal('hide');
+
+        var data = $("#frmUpdateProduct").serialize();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Administrator/Product/Update",
+            data: data,
+
+            success: function (response) {
+                if (response.success) {
+
+                    swal({
+                        position: 'top-end',
+                        type: "success",
+                        title: response.responseText,
+                        showConfirmButton: false,
+
+                    }), setTimeout(function () { location.reload(); }, 3000);
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
+                }
+            },
+
+            error: function (response) {
+                alert("error!");
+
+            }
+        })
+
+    })
+
+
+    function DeleteRecord(e) {
+
+        var id = e;
+
+        console.log(id);
+
+
+        swal(
+
+            {
+                title: "Are you sure?",
+
+                text: "Once deleted, you will not be able to recover this  file!",
+
+                type: "success",
+
+                showCancelButton: true,
+
+                confirmButtonColor: "##62b76e",
+
+                confirmButtonText: "Yes, Procceed!",
+
+                closeOnConfirm: false
+            },
+
+            function () {
+
+                $.ajax({
+
+                    type: "GET",
+
+                    url: "/Administrator/Expenses/Delete/" + id,
+
+                    success: function (response) {
+
+                        if (response.success) {
+
+                            swal({
+
+                                position: 'top-end',
+
+                                type: "success",
+
+                                title: response.responseText,
+
+                                showConfirmButton: false,
+
+                                // timer: 2000,
+
+                            });
+                            setTimeout(function () { location.reload(); }, 3000);
+
+                        }
+
+                        else {
+                            swal({
+                                position: 'top-end',
+                                type: "error",
+                                title: response.responseText,
+                                showConfirmButton: true,
+                                timer: 5000,
+                            });
+
+                        }
+
+                    },
+                    error: function (response) {
+                        swal({
+                            position: 'top-end',
+                            type: "error",
+                            title: "Server error ,kindly contact the admin for assistance",
+                            showConfirmButton: false,
+                            timer: 5000,
+                        });
+
+                    }
+
+                })
+
+            }
+        );
+    }
+
+
+    function GetProductInformation(e) {
+        var id = e;
+        console.log(id);
+
+        $.get("/Administrator/Product/GetById/?Id=" + id, function (data, status) {
+            console.log(data);
+            if (data == null) {
+                alert("Does not exist");
+            } else {
+
+                $("#txtId1").val(data.data.Id);
+                $("#txtCostPrice1").val(data.data.CostPrice);
+                $("#txtSellingPrice1").val(data.data.SellingPrice);
+                $("#txtReOrderLevel1").val(data.data.ReOrderLevel);
+
+                $("#txtProductId1").val(data.data.ProductId);
+                $("#txtQuantity1").val(data.data.Quantity);
+                $("#txtPackagingId").val(data.data.PackagingId);
+
+
+                $('#ModalUpdateProduct').modal({ backdrop: 'static', keyboard: false })
+                $("#ModalUpdateProduct").modal('show');
+            }
+
+        });
+    };
+
+    //Allow users to enter numbers only
+    $(".numericOnly").bind('keypress', function (e) {
+        if (e.keyCode == '9' || e.keyCode == '16') {
+            return;
+        }
+        var code;
+        if (e.keyCode) code = e.keyCode;
+        else if (e.which) code = e.which;
+        if (e.which == 46)
+            return false;
+        if (code == 8 || code == 46)
+            return true;
+        if (code < 48 || code > 57)
+            return false;
+    });
+
+    //Disable paste
+    $(".numericOnly").bind("paste", function (e) {
+        e.preventDefault();
+    });
+
+    $(".numericOnly").bind('mouseenter', function (e) {
+        var val = $(this).val();
+        if (val != '0') {
+            val = val.replace(/[^0-9]+/g, "")
+            $(this).val(val);
+        }
+    });
+
+
+
+
+
+
+</script>

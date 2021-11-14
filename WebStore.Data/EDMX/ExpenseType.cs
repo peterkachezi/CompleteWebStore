@@ -25,6 +25,7 @@ namespace WebStore.Data.EDMX
         public System.DateTime CreateDate { get; set; }
         public string CreatedBy { get; set; }
     
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Expens> Expenses { get; set; }
     }

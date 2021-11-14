@@ -129,14 +129,23 @@
                                     </ul>
                                 </li>
 
-                                @*<li>
-                                        <a><i class="fa fa-home"></i> Orders <span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li><a href="~/Administrator/POS/">POS</a></li>
-                                            <li><a href="~/Administrator/Credit/">Products On Credit</a></li>
+                                <li>
+                                    <a><i class="fa fa-home"></i> Invoices <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="~/Administrator/POS/">Re-Generate Receipts</a></li>
+                                        <li><a href="~/Administrator/Credit/">Manage Invoices</a></li>
 
-                                        </ul>
-                                    </li>*@
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a><i class="fa fa-home"></i> Receipts <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="~/Administrator/POS/">Re-Generate Receipts</a></li>
+                                        <li><a href="~/Administrator/Credit/">Manage Invoices</a></li>
+
+                                    </ul>
+                                </li>
 
                                 @*<li>
                                         <a><i class="fa fa-home"></i> Sales <span class="fa fa-chevron-down"></span></a>
@@ -233,10 +242,21 @@
                                 </li>
 
                                 <li>
+                                    <a><i class="fa fa-share"></i>Expenses<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="~/Administrator/ExpenseTypes/">Manage Expense Types</a></li>
+                                        <li><a href="~/Administrator/Expenses/">View Expenses</a></li>
+                                        <li><a href="~/Administrator/Expenses/AddExpense">Add Expense</a></li>
+                             
+
+                                    </ul>
+                                </li>
+
+
+                                <li>
                                     <a><i class="fa fa-envelope-o"></i>Reports<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="#">Products</a></li>
-
                                     </ul>
                                 </li>
 
@@ -247,6 +267,7 @@
 
                                         <li><a href="#">Payment Settings</a></li>
                                         <li><a href="~/Administrator/UserManagement/">Manage Users</a></li>
+
                                         @*<li><a href="~/Administrator/Role/">Users Roles</a></li>
                                             <li><a href="~/Administrator/Branch/">System Access Audit Trail</a></li>
                                             <li><a href="~/Administrator/Branch/">Manage Taxes</a></li>

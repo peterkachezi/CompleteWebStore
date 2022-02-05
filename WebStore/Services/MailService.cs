@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using RazorEngine;
 using RazorEngine.Templating;
@@ -15,6 +16,60 @@ namespace WebStore.Services
 {
     public class MailService : IMailService
     {
+
+
+
+
+        //public bool SendEmailNotification(CustomerDTO customerDTO)
+        //{
+        //    try
+        //    {
+        //        MailMessage mail = new MailMessage();
+        //        mail.To.Add(customerDTO.Email);
+        //        mail.From = new MailAddress("peterspecimen@gmail.com");
+        //        mail.Subject = "Test";
+
+        //        MailMessage mailMessage = new MailMessage();
+
+        //        var baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data");
+
+        //        var templatePath = Path.Combine(baseDir, @"EmailTemplates\EmailNotification.cshtml");
+
+        //        var template = File.ReadAllText(templatePath);
+
+        //        var templateResult = Engine.Razor.RunCompile(template, $"{Guid.NewGuid()}_EmailTemplate", null, customerDTO);
+
+        //        mailMessage.BodyEncoding = System.Text.Encoding.UTF8;
+
+        //        mailMessage.Body = templateResult.Trim();
+
+        //        mailMessage.IsBodyHtml = true;
+
+        //        string Body = templateResult.Trim();
+
+        //        mail.Body = Body;
+        //        mail.IsBodyHtml = true;
+        //        SmtpClient smtp = new SmtpClient();
+        //        smtp.Host = "smtp.gmail.com";
+        //        smtp.Port = 587;
+        //        smtp.UseDefaultCredentials = false;
+        //        smtp.Credentials = new System.Net.NetworkCredential("peterspecimen@gmail.com", "Peter@2021!!"); // Enter seders User name and password  
+        //        smtp.EnableSsl = true;
+        //        smtp.Send(mail);
+        //        return true;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return true;
+        //}
+
+
+
+
+
         public bool SendEmailNotification(CustomerDTO customerDTO)
         {
             try
@@ -172,7 +227,7 @@ namespace WebStore.Services
                 return false;
             }
 
-       
+
         }
 
     }

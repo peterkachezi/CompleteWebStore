@@ -7,41 +7,41 @@
       <Diagram DiagramId="4453bea4379044048abc4298658e31a0" Name="Diagram1">
         <EntityTypeShape EntityType="WinkadStoreModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.AspNetRole" Width="1.5" PointX="0.75" PointY="27.125" />
-        <EntityTypeShape EntityType="WinkadStoreModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="32.25" />
-        <EntityTypeShape EntityType="WinkadStoreModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="25.375" />
+        <EntityTypeShape EntityType="WinkadStoreModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="39.625" />
+        <EntityTypeShape EntityType="WinkadStoreModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="54" />
         <EntityTypeShape EntityType="WinkadStoreModel.AspNetUser" Width="1.5" PointX="3" PointY="24" />
         <EntityTypeShape EntityType="WinkadStoreModel.Branch" Width="1.5" PointX="0.75" PointY="5.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.Brand" Width="1.5" PointX="2.75" PointY="5.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.Company" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="WinkadStoreModel.County" Width="1.5" PointX="5.75" PointY="3.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.Country" Width="1.5" PointX="0.75" PointY="1.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.CustomerOrder" Width="1.5" PointX="12.75" PointY="42.375" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Customer" Width="1.5" PointX="5.25" PointY="48.875" />
+        <EntityTypeShape EntityType="WinkadStoreModel.CustomerOrder" Width="1.5" PointX="7.5" PointY="25.125" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Customer" Width="1.5" PointX="5.25" PointY="22.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.DeliveryFee" Width="1.5" PointX="4.75" PointY="6.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.Department" Width="1.5" PointX="6.75" PointY="6.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Electronic" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Electronic" Width="1.5" PointX="5.25" PointY="49.875" />
         <EntityTypeShape EntityType="WinkadStoreModel.Employee" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Expens" Width="1.5" PointX="7.5" PointY="32.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.ExpenseType" Width="1.5" PointX="5.25" PointY="42.875" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Furniture" Width="1.5" PointX="5.25" PointY="16.5" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Expens" Width="1.5" PointX="7.5" PointY="20.25" />
+        <EntityTypeShape EntityType="WinkadStoreModel.ExpenseType" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Furniture" Width="1.5" PointX="5.25" PointY="35.375" />
         <EntityTypeShape EntityType="WinkadStoreModel.Invoice" Width="1.5" PointX="0.75" PointY="8.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.MpesaExpressRespons" Width="1.5" PointX="8.75" PointY="4.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.MpesaPaymentSetting" Width="1.5" PointX="8.75" PointY="7.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.OrderPayment" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.PaymentMode" Width="1.5" PointX="2.75" PointY="9.75" />
         <EntityTypeShape EntityType="WinkadStoreModel.Payment" Width="1.5" PointX="10.75" PointY="6.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.ProductPackaging" Width="1.5" PointX="5.25" PointY="45.875" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Product" Width="1.5" PointX="10.5" PointY="34.875" />
-        <EntityTypeShape EntityType="WinkadStoreModel.ProductType" Width="1.5" PointX="7.5" PointY="38.5" />
+        <EntityTypeShape EntityType="WinkadStoreModel.ProductPackaging" Width="1.5" PointX="5.25" PointY="42.375" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Product" Width="1.5" PointX="7.5" PointY="33.125" />
+        <EntityTypeShape EntityType="WinkadStoreModel.ProductType" Width="1.5" PointX="10.5" PointY="21.125" />
         <EntityTypeShape EntityType="WinkadStoreModel.Return" Width="1.5" PointX="7.75" PointY="11.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Sale" Width="1.5" PointX="10.5" PointY="40.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.SalesDetail" Width="1.5" PointX="12.75" PointY="32" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Sale" Width="1.5" PointX="7.5" PointY="28.625" />
+        <EntityTypeShape EntityType="WinkadStoreModel.SalesDetail" Width="1.5" PointX="9.75" PointY="28.875" />
         <EntityTypeShape EntityType="WinkadStoreModel.SmsRespons" Width="1.5" PointX="9.75" PointY="11.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Supplier" Width="1.5" PointX="5.25" PointY="38.375" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Supplier" Width="1.5" PointX="5.25" PointY="45.375" />
         <EntityTypeShape EntityType="WinkadStoreModel.Tax" Width="1.5" PointX="4.75" PointY="9.75" />
-        <EntityTypeShape EntityType="WinkadStoreModel.UnitOfMeasure" Width="1.5" PointX="5.25" PointY="53.375" />
-        <EntityTypeShape EntityType="WinkadStoreModel.VehicleMake" Width="1.5" PointX="6" PointY="28" />
-        <EntityTypeShape EntityType="WinkadStoreModel.Vehicle" Width="1.5" PointX="8.25" PointY="25.875" />
+        <EntityTypeShape EntityType="WinkadStoreModel.UnitOfMeasure" Width="1.5" PointX="5.25" PointY="15.375" />
+        <EntityTypeShape EntityType="WinkadStoreModel.VehicleMake" Width="1.5" PointX="3" PointY="33" />
+        <EntityTypeShape EntityType="WinkadStoreModel.Vehicle" Width="1.5" PointX="5.25" PointY="27.875" />
         <AssociationConnector Association="WinkadStoreModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="WinkadStoreModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="WinkadStoreModel.FK_Customers_AspNetUsers" />

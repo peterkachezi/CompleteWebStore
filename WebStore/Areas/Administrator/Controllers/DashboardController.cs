@@ -41,13 +41,22 @@ namespace WebStore.Areas.Administrator.Controllers
         public async Task<ActionResult> Index()
         {
 
-            ViewBag.Products = (await productService.GetAll()).Count;
-            //ViewBag.Sales = (await salesService.GetSalesOrdersDetails()).Count;
-            ViewBag.Customers= (await customersService.GetAllCustomers()).Count;
-            ViewBag.Suppliers= (await supplierService.GetAllSuppliers()).Count;
+            try
+            {
+                ViewBag.Products = (await productService.GetAll()).Count;
+                //ViewBag.Sales = (await salesService.GetSalesOrdersDetails()).Count;
+                ViewBag.Customers = (await customersService.GetAllCustomers()).Count;
+                ViewBag.Suppliers = (await supplierService.GetAllSuppliers()).Count;
 
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return null;
+            }
         }
     }
 }

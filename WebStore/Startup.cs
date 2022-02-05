@@ -13,10 +13,11 @@ namespace WebStore
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
             CreateRoles();
+
             CreateUsers();
         }
-
 
         private void CreateRoles()
         {
@@ -93,31 +94,35 @@ namespace WebStore
 
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-
                 var admin = UserManager.FindByEmail("admin@gmail.com");
 
                 if (admin == null)
                 {
-
                     var user = new ApplicationUser();
+
                     user.UserName = "admin@gmail.com";
+
                     user.Email = "admin@gmail.com";
+
                     user.PhoneNumber = "0704509484";
+
                     user.EmailConfirmed = true;
+
                     user.FirstName = "Peter";
+
                     user.LastName = "Kachezi";
+
                     user.CreateDate = DateTime.Now;
+
                     user.AccountStatus = 1;
 
                     string userPWD = "Admin@2021";
 
                     var chkUser = UserManager.Create(user, userPWD);
 
-
                     if (chkUser.Succeeded)
                     {
                         var result1 = UserManager.AddToRole(user.Id, "Admin");
-
                     }
 
                 }
@@ -126,16 +131,24 @@ namespace WebStore
 
                 if (cashier == null)
                 {
-
                     var user = new ApplicationUser();
+
                     user.UserName = "cashier@gmail.com";
+
                     user.Email = "cashier@gmail.com";
+
                     user.PhoneNumber = "0704509484";
+
                     user.EmailConfirmed = true;
+
                     user.FirstName = "Mr";
+
                     user.LastName = "Cashier";
+
                     user.CreateDate = DateTime.Now;
+
                     user.AccountStatus = 1;
+
                     string userPWD = "Cashier@2021";
 
                     var chkUser = UserManager.Create(user, userPWD);
@@ -152,16 +165,24 @@ namespace WebStore
 
                 if (agent == null)
                 {
-
                     var user = new ApplicationUser();
+
                     user.UserName = "agent@gmail.com";
+
                     user.Email = "agent@gmail.com";
+
                     user.PhoneNumber = "0704509484";
+
                     user.EmailConfirmed = true;
+
                     user.FirstName = "Peter";
+
                     user.LastName = "Kachezi";
+
                     user.CreateDate = DateTime.Now;
+
                     user.AccountStatus = 1;
+
                     string userPWD = "Agent@2021";
 
                     var chkUser = UserManager.Create(user, userPWD);
@@ -171,18 +192,13 @@ namespace WebStore
                         var result1 = UserManager.AddToRole(user.Id, "Agent");
 
                     }
-
                 }
-
-
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);                             
 
             }
-
 
         }
     }

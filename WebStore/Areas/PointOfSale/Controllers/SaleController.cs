@@ -186,7 +186,7 @@ namespace WebStore.Areas.PointOfSale.Controllers
             {
                 LocalReport lr = new LocalReport();
 
-                string p = Path.Combine(Server.MapPath("~/Reports"), "OrderReceipt.rdlc");
+                string p = Path.Combine(Server.MapPath("~/Reports"), "DirectSaleReceipt.rdlc");
 
                 lr.ReportPath = p;
 
@@ -286,8 +286,6 @@ namespace WebStore.Areas.PointOfSale.Controllers
             }, JsonRequestBehavior.AllowGet);
 
         }
-
-
         public async Task<ActionResult> GetCustomerOrders(Models.JqueryDatatableParam param)
         {
 
@@ -337,6 +335,23 @@ namespace WebStore.Areas.PointOfSale.Controllers
                 aaData = displayResult
             }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        public async Task<ActionResult> DirectSales()
+        {
+
+            var products = await productService.GetAll();
+
+            if (products.Count == 0)
+            {
+                return RedirectToAction("ProductInformation");
+
+            }
+
+
+            ViewBag.Products = products;
+
+            return View();
         }
     }
 }

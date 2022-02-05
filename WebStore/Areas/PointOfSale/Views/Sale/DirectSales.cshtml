@@ -13,23 +13,6 @@
 
                     <div class="row form-group">
 
-
-                        <div class="col-md-4">
-                            <label class="card-title Header">Select Customer</label>
-                            <select class="form-control" id="txtCustomerId" name="CustomerId">
-                                @if (ViewBag.Customers != null)
-                                {
-                                    foreach (var data in ViewBag.Customers)
-                                    {
-                                        <option value="@data.Id"> @data.FullName</option>
-                                    }
-                                }
-
-
-                            </select>
-                        </div>
-
-
                         <div class="col-md-4">
                             <label class="card-title Header">Select Product</label>
                             <select class="form-control" name="Id" id="txtProductId">
@@ -176,8 +159,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="item form-group">
                         <label class="col-form-label col-md-4 col-sm-3 label-align" for="first-name">
                             Payment Amount
@@ -186,6 +167,7 @@
                             <input type="text" id="txtPaymentAmount" value="0.00" class="form-control ">
                         </div>
                     </div>
+
 
 
 
@@ -341,101 +323,108 @@
 
     }
 
-
     function SaveTransaction() {
-        debugger
 
-        var id = $("#txtCustomerId").val();
+        $("#divLoader").show();
 
-        console.log(id);
-
-
-        $("#divPayment").modal('hide');
-
-        if ($('#txtCustomerId').val() == '' || $('#txtCustomerId').val() == null) {
-            $('#txtCustomerId').focus();
+        if ($('#txtTotalAmount').val() < 1) {
+            $('#tblProducts').focus();
             swal({
                 position: 'top-end',
                 type: "error",
-                title: "Please select a customer",
+                title: "There are no items on the list",
                 showConfirmButton: true,
             });
-
+            $("#divLoader").hide();
             return false;
+
+
         }
-        else {
 
 
-            $("#divLoader").show();
-            var OrderDTO = {};
-            ListOfSalesDetails = new Array();
-
-            OrderDTO.CustomerId = $("#txtCustomerId").val();
-            OrderDTO.Id = $("#txtPaymentModeId").val();
-            OrderDTO.TotalAmount = $("#txtTotalAmount").val();
-            OrderDTO.Change = $("#txtBalance").val();
-            OrderDTO.CashPaid = $("#txtPaymentAmount").val();
-
-            $("#tblProducts").find("tr:gt(0)").each(function () {
-
-                var SalesOrderDetailsDTO = {};
-
-                SalesOrderDetailsDTO.Total = parseFloat($(this).find("td:eq(5)").text());
-                SalesOrderDetailsDTO.ProductId = $(this).find("td:eq(0)").text();
-                SalesOrderDetailsDTO.SellingPrice = parseFloat($(this).find("td:eq(2)").text());
-                SalesOrderDetailsDTO.Quantity = parseFloat($(this).find("td:eq(3)").text());
-                SalesOrderDetailsDTO.Discount = parseFloat($(this).find("td:eq(4)").text());
-
-                ListOfSalesDetails.push(SalesOrderDetailsDTO);
-
-            });
-
-            OrderDTO.ListOfSalesDetails = ListOfSalesDetails;
-
-            $.ajax({
-
-                async: true,
-                type: 'POST',
-                dataType: 'JSON',
-                url: '/Administrator/Sale/SaveTransaction/',
-                data: JSON.stringify(OrderDTO),
-
-                contentType: 'application/json;charset=utf-8',
-
-                success: function (response) {
-
-                    if (response.success) {
-
-                        var orderNumber = response.responseText;
-
-                        $("#txtOrderNumber").val(orderNumber);
-
-                        $('#ReceiptModal').modal({ backdrop: 'static', keyboard: false })
-
-                        $("#ReceiptModal").modal('show');
+        //if ($('#txtPaymentAmount').parseFloat() < $('#txtTotalAmount').val()) {
+        //    $('#txtPaymentAmount').focus();
+        //    swal({
+        //        position: 'top-end',
+        //        type: "error",
+        //        title: "You have entered insufficient funds",
+        //        showConfirmButton: true,
+        //    });
+        //    $("#divLoader").hide();
+        //    return false;
+        //}
 
 
-                    } else {
+        var OrderDTO = {};
 
-                        swal({
-                            position: 'top-end',
-                            type: "error",
-                            title: response.responseText,
-                            showConfirmButton: true,
-                            timer: 5000,
-                        });
+        ListOfSalesDetails = new Array();
 
-                    }
+        OrderDTO.CustomerId = $("#txtCustomerId").val();
+        OrderDTO.Id = $("#txtPaymentModeId").val();
+        OrderDTO.TotalAmount = $("#txtTotalAmount").val();
+        OrderDTO.Change = $("#txtBalance").val();
+        OrderDTO.CashPaid = $("#txtPaymentAmount").val();
 
-                    $("#divLoader").hide();
+        $("#tblProducts").find("tr:gt(0)").each(function () {
 
-                },
-                error: function (error) {
-                    alert("errror");
+            var SalesOrderDetailsDTO = {};
+
+            SalesOrderDetailsDTO.Total = parseFloat($(this).find("td:eq(5)").text());
+            SalesOrderDetailsDTO.ProductId = $(this).find("td:eq(0)").text();
+            SalesOrderDetailsDTO.SellingPrice = parseFloat($(this).find("td:eq(2)").text());
+            SalesOrderDetailsDTO.Quantity = parseFloat($(this).find("td:eq(3)").text());
+            SalesOrderDetailsDTO.Discount = parseFloat($(this).find("td:eq(4)").text());
+
+            ListOfSalesDetails.push(SalesOrderDetailsDTO);
+
+        });
+
+        OrderDTO.ListOfSalesDetails = ListOfSalesDetails;
+
+        $.ajax({
+
+            async: true,
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/Administrator/Sale/SaveTransaction/',
+            data: JSON.stringify(OrderDTO),
+
+            contentType: 'application/json;charset=utf-8',
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    var orderNumber = response.responseText;
+
+                    $("#txtOrderNumber").val(orderNumber);
+
+                    $('#ReceiptModal').modal({ backdrop: 'static', keyboard: false })
+
+                    $("#ReceiptModal").modal('show');
+
+
+                } else {
+
+                    swal({
+                        position: 'top-end',
+                        type: "error",
+                        title: response.responseText,
+                        showConfirmButton: true,
+                        timer: 5000,
+                    });
+
                 }
 
-            });
-        }
+                $("#divLoader").hide();
+
+            },
+            error: function (error) {
+                alert("errror");
+            }
+
+        });
+
 
 
 
@@ -484,6 +473,19 @@
             return false;
         }
 
+
+
+        if ($('#txtQuantity').val() > $('#txtCurrentQuantity').val()) {
+            $('#txtQuantity').focus();
+            swal({
+                position: 'top-end',
+                type: "error",
+                title: "The quantity entered exceeds the available stock",
+                showConfirmButton: true,
+            });
+
+            return false;
+        }
 
 
 

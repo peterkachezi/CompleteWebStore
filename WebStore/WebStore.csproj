@@ -5544,6 +5544,7 @@
     <Content Include="Areas\Administrator\Views\Expenses\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\ExpenseTypes\Index.cshtml" />
     <Content Include="Areas\Administrator\Views\Expenses\AddExpense.cshtml" />
+    <Content Include="Areas\PointOfSale\Views\Sale\DirectSales.cshtml" />
     <None Include="Reports\ReportDataSet1.xsd" />
     <Content Include="Reports\ReportDataSet1.xss">
       <DependentUpon>ReportDataSet1.xsd</DependentUpon>
@@ -5644,8 +5645,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\CustomesReport.rdlc" />
-    <EmbeddedResource Include="Reports\OrderReceipt.rdlc" />
-    <EmbeddedResource Include="Reports\DirectSaleReceipt.rdlc" />
+    <Content Include="Reports\OrderReceipt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\DirectSaleReceipt.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Reports\Report1.rdlc" />
   </ItemGroup>
   <PropertyGroup>
